@@ -1,0 +1,98 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('../../sankt-peder-frontend-tailwind/pics/Forsidefoto.jpg');
+    background-size: cover;
+    color: #ffffff;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(51, 51, 51, 0.7);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 0;
+}
+
+.section-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+section {
+    margin-bottom: 40px;
+    flex-basis: 50%;
+}
+
+h1, h2 {
+    margin-top: 0;
+}
+
+.center {
+    text-align: center;
+}
+
+nav ul li:nth-child(4) a {
+    color: orange;
+    margin-left: 50px;
+}
+
+nav ul li:nth-child(5) {
+    margin-left: 50px;
+}
+
+nav ul li a:hover {
+    color: #588a5d;
+}
+
+@media only screen and (min-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul {
+        margin-top: 20px;
+    }
+
+    main {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    section {
+        width: calc(50% - 20px);
+    }
+}
