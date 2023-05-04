@@ -1,0 +1,22 @@
+header {
+    background-color: rgba(51, 51, 51, 0.7); /* Set a transparent background color */
+rgba(255,255,255,.7);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
