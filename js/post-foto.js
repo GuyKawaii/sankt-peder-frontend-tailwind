@@ -7,8 +7,10 @@ postFotoForm.addEventListener('submit', async (event) => {
     const url = postFotoForm.elements['url'].value;
 
     const response = await fetch('http://localhost:8080/foto', {
+
         method: 'POST',
         headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
