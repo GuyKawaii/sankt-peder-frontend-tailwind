@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <style>
+        .landing-container {
+            text-align: center;
+            margin: 2em;
+        }
+    </style>
+    <script src="../js/login.js"></script>
+</head>
+
+<body>
+<div style="margin:1em;">
+    <h2>Demo Page to demonstrate security, implemented by backend</h2>
+    <br />
+    <hr />
+</div>
+
+<div id="admin-landing" class="landing-container" style="display: none;">
+    <h3>Welcome, Admin!</h3>
+    <button id="btn-admin-logout" class="btn btn-dark">Logout</button>
+</div>
+
+<p style="margin:1em;font-size:x-large" id="response"></p>
+<script src="../js/login.js"></script>
+<script>
+    // admin landing page og logout
+    const adminLandingContainer = document.getElementById('admin-landing');
+    const adminLogoutButton = document.getElementById('btn-admin-logout');
+
+    function showAdminLandingPage() {
+        const loggedInUser = getUserFromToken(); // Funktion til at hente en bruger fra token
+        if (loggedInUser.roles.includes('ADMIN')) {
+            adminLandingContainer.style.display = 'block';
+            adminLandingBtn.style.display = 'block';
+            adminLandingContainer.style.display = 'inline';
+        }
+    }
+
+    // Logout knap på admin siden
+    adminLogoutButton.addEventListener('click', () => {
+
+        // Redirecter til login siden fra admin siden
+        window.location.href = 'login.html';
+    });
+
+    //når man trykker på knappen til til admin siden kaldes følgende funktion
+    showAdminLandingPage();
+</script>
+</body>
+
+</html>

@@ -148,3 +148,70 @@ async function fetchDataAndUpdateUI(url, addToken) {
 
     }
 }
+//-------------------------------------------- start her i morgen @ ebus ------------
+
+
+//getUserFromToken() er en funktion som henter information on brugeren fra token (JWT)
+function getUserFromToken() {
+    //Henter data fra JWT medmindre der ikke er nogen token. Hvis token ikke findes, returneres null.
+    const token = localStorage.getItem("token");
+    if (!token) {
+        return null;
+    }
+
+    try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        return {
+            user: payload.user,
+            roles: payload.roles
+        };
+    } catch (err) {
+        console.error("Error decoding token:", err);
+        return null;
+    }
+}
+
+
+
+// Disse funktioner tjekker om brugeren er logget ind, og om brugeren har ADMIN rolle.
+// Hvis den har, så vises knappen til admin landing page (som ikke er færdig endnu)
+function checkAndShowAdminLandingButton() {
+    const user = getUserFromToken();
+    if (user && user.roles.includes("ADMIN")) {
+        document.getElementById("btn-admin-landing").style.display = "block";
+    } else {
+        document.getElementById("btn-admin-landing").style.display = "none";
+    }
+}
+
+// Kalder på checkAndShowAdminLandingButton() inde i følgende funktion
+function storeLoginDetails(res) {
+    localStorage.setItem("token", res.token);
+    localStorage.setItem("user", res.username);
+    localStorage.setItem("roles", res.roles);
+    //Update UI
+    toogleLoginStatus(true);
+    responseStatus.innerText = "";
+    checkAndShowAdminLandingButton();
+}
+
+// Kalder på checkAndShowAdminLandingButton() inde i følgende funktion
+function clearLoginDetails() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("roles");
+    //Update UI
+    toogleLoginStatus(false);
+    responseStatus.innerText = "";
+    checkAndShowAdminLandingButton();
+}
+
+// kalder checkAndShowAdminLandingButton() for at tjekke status på knappen når man logger ind
+checkAndShowAdminLandingButton();
+
+document.getElementById("btn-admin-landing").addEventListener("click", () => {
+    window.location.href = "admin-landingpage.html";
+});
+
+
+
