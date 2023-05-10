@@ -3,45 +3,34 @@ const menuPlaceHolder = {
     "name": "MENU 11.30 - 21.00",
     "menuItems": [
         {
-            "id": 1,
-            "name": "Sankt Peders hjemmelavede karrysild m. æble og æg",
-            "description": "Herring in homemade curry dressing with eggs (house speciality)\n",
-            "price": "95"
-        },
-        {
-            "id": 2,
-            "name": "\"Sol over Sankt Peder\" Røget makrel, radiser, purløg, æggeblomme",
-            "description": "\"Sun over Sankt Peder\" smoked mackerel, radishes, chives, egg yolk",
-            "price": "120"
-        },
-        {
-            "id": 3,
-            "name": "Lun leverpostej m. bacon og rødbeder og agurkesalat",
-            "description": "Warm liver paste with bacon and pickled cucumber",
-            "price": "100"
-        },
-        {
-            "id": 4,
-            "name": "Ruths kryddersild fra Christiansø m. rødløg og kapers",
-            "description": "Ruth’s pickled herring from 'Christiansø' with onions and capers",
-            "price": "100"
-        },
-        {
-            "id": 5,
-            "name": "”Den Fromme” avocado på ristet rugbrød, rejer og creme fraiche",
-            "description": "”The Pious” Avocado on toasted rye bread with shimps and sour creme",
-            "price": "125"
-        },
-        {
-            "id": 6,
-            "name": "Landskinke m. spejlæg, tomater og purløg",
-            "description": "Ham with fried egg, tomatoes and chives",
-            "price": "100"
+            "menu": {
+                "id": 1,
+                "name": "Updated Menu Name"
+            },
+            "menuItems": [
+
+                {
+                    "id": 2,
+                    "name": "Updated MenuItem 2",
+                    "description": "Updated description for MenuItem 2",
+                    "price": "15.99"
+                },
+                {
+                    "id": 4,
+                    "name": "NEW ITEM",
+                    "description": "NEW ITEM NICE",
+                    "price": "15.99"
+                },
+                {
+                    "id": 1,
+                    "name": "Updated MenuItem 1",
+                    "description": "Updated description for MenuItem 1",
+                    "price": "99.50"
+                },
+            ]
         }
     ]
 }
-
-
 
 async function getMenu(menuId) {
     return fetch('http://localhost:8080/menu/' + menuId)
@@ -53,19 +42,16 @@ async function getMenu(menuId) {
         });
 }
 
-
 window.onload = async function () {
-    // const menuData = await getMenu(1);
-    const menuData = menuPlaceHolder
-    console.log("menuData");
-    console.log(menuData);
+    let menuData = await getMenu(1);
     const menuItems = document.querySelector('#menu-items');
     const menuName = document.querySelector('#menu-name');
 
-    menuData.menuItems.forEach(item => {
+    menuData.menuItems.forEach((item, index) => {
         const menuItem = `
-            <div class="menu-item bg-gray-200 flex flex-row justify-between max-w-6xl sm:max-w-md">
-                <div class="menu-item-main">
+            <div id="menu-item-${item.id}" class="menu-item bg-gray-200 flex flex-row justify-between max-w-6xl sm:max-w-md">
+                <div class="order-number mr-4">${index + 1}. </div>
+                <div class="menu-item-main flex-grow">
                     <p class="menu-item-title font-bold">${item.name}</p>
                     <p class="menu-item-description">${item.description}</p>
                 </div>
@@ -77,4 +63,32 @@ window.onload = async function () {
     });
 
     menuName.innerHTML = menuData.name;
+
+    new Sortable(menuItems, {
+        animation: 150,
+        handle: ".menu-item",
+        onEnd: function() {
+            const newOrder = Array.from(menuItems.children).map((child, index) => {
+                const orderNumber = child.querySelector('.order-number');
+                orderNumber.textContent = `${index + 1}. `;
+                const id = parseInt(child.id.replace('menu-item-', ''));
+                return menuData.menuItems.find(item => item.id === id);
+            });
+            menuData.menuItems = newOrder;
+            updateMenu(menuData);
+        }
+    });
+}
+
+async function updateMenu(menuData) {
+    return fetch('http://localhost:8080/menu/' + menuData.id, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(menuData)
+    })
+        .then(response => response.json())
+        .then(data => console.log('Success:', data))
+        .catch((error) => console.error('Error:', error));
 }
