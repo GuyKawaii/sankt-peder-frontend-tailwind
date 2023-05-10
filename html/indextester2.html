@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/indextester2.css">
+  <link rel="stylesheet" href="../css/footer.css">
+
+  <title>Manage Landing Page</title>
+  <script src="../js/indextester.js" defer></script>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav id="navbar" class="fixed w-full mx-auto p-2 pb-4 bg-white transition-colors duration-500">
+  <!-- Flex container -->
+  <div class="flex items-center justify-between">
+    <!-- Logo -->
+    <div class="pt-2">
+      <img src="pics/Forsidefoto.jpg" alt="" />
+    </div>
+    <!-- Menu Items -->
+    <div class="hidden space-x-6 md:flex">
+      <a href="index.html" class="hover:text-amber-600">FORSIDE</a>
+      <a href="menuOgDrikkevare.html" class="hover:text-amber-600">MENUKORT OG DRIKKEVARER</a>
+      <a href="menukort1050Personer.html" class="hover:text-amber-600">MENUKORT 10-50 PERSONER</a>
+      <a href="selskabsmenu.html" class="hover:text-amber-600">SELSKABSMENU</a>
+      <a href="mødelokaler.html" class="hover:text-amber-600">MØDELOKALE/LOGEN </a>
+      <a href="julemenu.html" class="hover:text-amber-600">JULEMENU 2023</a>
+      <a href="fotos.html" class="hover:text-amber-600">FOTOS</a>
+      <a href="omOs.html" class="hover:text-amber-600">OM OS</a>
+    </div>
+    <!-- Button -->
+    <a href="fotos.html" class="hidden md:block p-3 px-6 pt-2 text-white bg-red-500 rounded-full baseline hover:bg-black">FOTOS</a>
+  </div>
+
+  <!-- Hamburger Icon and Small Screen Text -->
+  <div class="flex items-center justify-between md:hidden">
+    <div class="block text-center font-bold">SANKT PEDER</div>
+    <button
+            id="menu-btn" class="block hamburger focus:outline-none">
+      <span class="hamburger-top"></span>
+      <span class="hamburger-middle"></span>
+      <span class="hamburger-bottom"></span>
+    </button>
+  </div>
+
+
+  <!-- Mobile Menu -->
+  <div class="md:hidden">
+    <div id="menu" class="absolute flex-col items-center hidden self-end py-8 mt-10 space-y-6 font-bold bg-white sm:w-auto sm:self-center left-6 right-6 drop-shadow-md">
+      <a href="index.html" class="hover:text-amber-600">FORSIDE</a>
+      <a href="menuOgDrikkevare.html" class="hover:text-amber-600">MENUKORT OG DRIKKEVARER</a>
+      <a href="menukort1050Personer.html" class="hover:text-amber-600">MENUKORT 10-50 PERSONER</a>
+      <a href="selskabsmenu.html" class="hover:text-amber-600">SELSKABSMENU</a>
+      <a href="mødelokaler.html" class="hover:text-amber-600">MØDELOKALE/LOGEN </a>
+      <a href="julemenu.html" class="hover:text-amber-600">JULEMENU 2023</a>
+      <a href="fotos.html" class="hover:text-amber-600">FOTOS</a>
+      <a href="omOs.html" class="hover:text-amber-600">OM OS</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- Hero Section -->
+<section id="hero" class="mt-16">
+  <div class="container flex flex-col items-center justify-center px-6 mx-auto mt-10 space-y-0 md:space-y-0 md:flex-row pt-30 font-bold">
+    <p>Velkommen til Sankt Peder</p>
+  </div>
+  <!-- Flex Container -->
+  <div class="container flex flex-col-reverse items-center px-6 mx-auto mt-10 space-y-0 md:space-y-0 md:flex-row pt-10">
+    <!-- Left item -->
+    <div class="flex flex-col mb-32 space-y-12 md:w-1/2">
+      <h1 class="max-w-md text-4xl font-bold text-center md:text-5xl md:text-left">
+        Hellerups hyggelige smørhul <br>
+        Siden 1972      </h1>
+      <p class="max-w-sm text-center text-darkGrayishBlue md:text-left">
+        Der kan KUN reserveres bord til spisende gæster og IKKE til drikkegæster
+        - Men selvfølgelig velkommen på chancen - Ude nede eller oppe :-)
+      </p>
+      <div class="flex justify-center md:justify-start">
+        <a href="https://book.dinnerbooking.com/dk/da-DK/book/table/pax/2880/2"
+           class="p-3 px-6 pt-2 text-white bg-red-500 rounded-full baseline hover:bg-black">BESTIL BORD</a>
+      </div>
+      </div>
+    </div>
+    <!-- Image -->
+  <div class="md:w-1/2">
+    <img src="../../sankt-peder-frontend-tailwind/pics/sanktP.jpeg" alt="hero">
+  </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section id="features">
+  <!-- Flex container -->
+  <div class="container flex flex-col px-4 mx-auto mt-10 space-y-12 md:space-y-0 md:flex-row"
+  >
+    <!-- What's Different -->
+    <div class="flex flex-col space-y-12 md:w-1/2">
+      <h2 class="max-w-md text-4xl font-bold text-center md:text-left">
+        Velkommen til Sankt Peder i Hellerup
+      </h2>
+      <p class="max-w-sm text-center text-darkGrayishBlue md:text-left">
+        På Sankt Peder bestræber vi os på at være din fortrukne lokale frokost- og middagsrestaurant med en afslappet atmosfære. <br> <br> Foruden vores faste menukort har vi altid dages ret samt en hjemmelavet dessert.
+        Desuden kan du i vores bar nyde en af de mange special øl. Er du mere til kølig rosé eller en flaske champagne har vi også det.
+      </p>
+    </div>
+
+    <!--Numbered List-->
+    <div class="flex flex-col space-y-8 md:w-1/2">
+      <!--List Item 1-->
+      <div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
+        <!--Heading-->
+        <div class="rounded-full bg-red-500 md:bg-transparent">
+          <div class="flex items-center space-x-2">
+            <div class="px-4 py-2 text-white rounded-full md:py-1 bg-red-500">
+              01
+            </div>
+            <!--Text-->
+            <h3 class="text-base font-bold md:mb-4 md:hidden">
+              UDESERVERING
+            </h3>
+          </div>
+        </div>
+        <div>
+          <h3 class="hidden mb-4 text-lg font-bold md:block">
+            UDESERVERING
+          </h3>
+          <div class="text-blue-400">
+            <p>
+              Det er muligt at forespørge på reservation af bordene ude, men vi kan ikke garantere at det er muligt.
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+      <!--List Item 2-->
+      <div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
+        <!--Heading-->
+        <div class="rounded-full bg-red-500 md:bg-transparent">
+          <div class="flex items-center space-x-2">
+            <div class="px-4 py-2 text-white rounded-full md:py-1 bg-red-500">
+              02
+            </div>
+            <!--Text-->
+            <h3 class="text-base font-bold md:mb-4 md:hidden">
+              HVOR LANG TID ER BORDET TIL RÅDIGHED
+            </h3>
+          </div>
+        </div>
+        <div>
+          <h3 class="hidden mb-4 text-lg font-bold md:block">
+            HVOR LANG TID ER BORDET TIL RÅDIGHED
+          </h3>
+          <div class="text-blue-400">
+            <p>
+              Bordet er som udgangspunkt til rådighed i 2 timer - lad os vide hvis du har brug for længere tid.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!--List Item 3-->
+      <div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
+        <!--Heading-->
+        <div class="rounded-full bg-red-500 md:bg-transparent">
+          <div class="flex items-center space-x-2">
+            <div class="px-4 py-2 text-white rounded-full md:py-1 bg-red-500">
+              03
+            </div>
+            <!--Text-->
+            <h3 class="text-base font-bold md:mb-4 md:hidden">
+              GRUPPER og SELSKABER
+            </h3>
+          </div>
+        </div>
+        <div>
+          <h3 class="hidden mb-4 text-lg font-bold md:block">
+            GRUPPER og SELSKABER
+          </h3>
+          <div class="text-blue-400">
+            <p>
+              Vi tager ikke imod online reservationer på mere end 10 personer -
+              reservation telefonisk eller til vores email på: sanktpeder72@gmail.com.
+              Bekræftelse af endeligt antal skal ske 7 dage før.<br>
+              Hvis der udebliver flere end 2 gæster på dagen, fakturerer vi for disse.
+              Alle selskaber afregnes på samlet regning - vi laver ikke individuelle afregning.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Testimonials -->
+<section id="testimonials">
+  <!-- Container to heading and testm blocks -->
+  <div class="max-w-6xl px-5 mx-auto mt-32 text-center">
+    <!-- Heading -->
+    <h2 class="text-4xl font-bold text-center">
+      What's Different About Manage?
+    </h2>
+    <!-- Testimonials Container -->
+    <div class="flex flex-col mt-24 md:flex-row md:space-x-6">
+      <!-- Testimonial 1 -->
+      <div
+              class="flex flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:w-1/3">
+        <img src="img/avatar-anisha.png" class="w-16 -mt-14" alt="" />
+        <h5 class="text-lg font-bold">Anisha Li</h5>
+        <p class="text-sm text-darkGrayishBlue">
+          “Manage has supercharged our team’s workflow. The ability to
+          maintain visibility on larger milestones at all times keeps
+          everyone motivated.”
+        </p>
+      </div>
+
+      <!-- Testimonial 2 -->
+      <div
+              class="hidden flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3"
+      >
+        <img src="img/avatar-ali.png" class="w-16 -mt-14" alt="" />
+        <h5 class="text-lg font-bold">Ali Bravo</h5>
+        <p class="text-sm text-darkGrayishBlue">
+          “We have been able to cancel so many other subscriptions since
+          using Manage. There is no more cross-channel confusion and
+          everyone is much more focused.”
+        </p>
+      </div>
+
+      <!-- Testimonial 3 -->
+      <div
+              class="hidden flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3"
+      >
+        <img src="img/avatar-richard.png" class="w-16 -mt-14" alt="" />
+        <h5 class="text-lg font-bold">Richard Watts</h5>
+        <p class="text-sm text-darkGrayishBlue">
+          “Manage has supercharged our team’s workflow. The ability to
+          maintain visibility on larger milestones at all times keeps
+          everyone motivated.”
+        </p>
+      </div>
+    </div>
+    <!-- Button -->
+    <div class="my-16">
+      <a
+              href="#"
+              class="p-3 px-6 pt-2 text-white bg-brightRed rounded-full baseline hover:bg-brightRedLight"
+      >Get Started</a
+      >
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section id="cta" class="bg-brightRed">
+  <!-- Flex Container -->
+  <div
+          class="container flex flex-col items-center justify-between px-6 py-24 mx-auto space-y-12 md:py-12 md:flex-row md:space-y-0"
+  >
+    <!-- Heading -->
+    <h2
+            class="text-5xl font-bold text-center text-white md:text-4xl md:max-w-xl md:text-left"
+    >
+      Simplify how your team works today
+    </h2>
+    <!-- Button -->
+    <div>
+      <a
+              href="#"
+              class="p-3 px-6 pt-2 text-brightRed bg-white rounded-full shadow-2xl baseline hover:bg-gray-900"
+      >Get Started</a
+      >
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-container">
+    <div class="contact-info">
+      <h4>Kontakt information</h4>
+      <p>Email: <a href="mailto:SANKTPEDER72@GMAIL.COM" style="color: white;">SANKTPEDER72@GMAIL.COM</a></p>
+      <p>Telefon: (+45) 3961 1187</p>
+    </div>
+
+    <div class="location-info">
+      <h4>Adresse</h4>
+      <p>Sankt Peders Vej 2</p>
+      <p>2900 Hellerup</p>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2246.5948166526427!2d12.5731892769113!3d55.730793393686156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4652527db8dde0fb%3A0x20f676f5b6d55f66!2sSankt%20Peder!5e0!3m2!1sda!2sdk!4v1683047286548!5m2!1sda!2sdk&amp;zoom=15" width="250" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    <div class="hours-info">
+      <h4>Åbningstider</h4>
+      <p>Mandag - Onsdag:  12 - 00</p>
+      <p>Torsdag: 12 - 01</p>
+      <p>Fredag: 12 - 02</p>
+      <p>Lørdag: 12 - 02</p>
+      <p>Søndag: 12 - 00</p>
+    </div>
+
+    <div class="hours-info">
+      <p>Køkkenets åbningstider</p>
+      <p>Mandag - Søndag: 12 - 21</p>
+    </div>
+
+    <div class="reviews">
+      <h4>Reviews</h4>
+      <p>Google: 4.4</p>
+      <p>Tripadvisor</p>
+      <a href="https://www.tripadvisor.dk/Restaurant_Review-g1571712-d1136057-Reviews-Vaertshuset_Sankt_Peder-Hellerup_Gentofte_Municipality_Copenhagen_Region_Zealand.html"><img src="../../sankt-peder-frontend-tailwind/pics/tripadvisor.jpeg"width="100" height="100" alt="Tripadvisor logo"></a>
+    </div>
+  </div>
+
+</footer>
+</body>
+</html>
