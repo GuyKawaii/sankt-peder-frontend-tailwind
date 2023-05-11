@@ -36,9 +36,8 @@ const menuPlaceHolder = {
             }
         }
     ]
-}
+};
 
-// Mocking the getMenu function to return placeholder data
 async function getMenu(menuId) {
     return fetch('http://localhost:8080/menu/' + menuId)
         .then(response => response.json())
@@ -51,16 +50,16 @@ async function getMenu(menuId) {
 
 function createMenuItem(item, index) {
     return `
-        <div id="menu-item-${item.id}" class="menu-item bg-gray-200 flex flex-row justify-between max-w-6xl sm:max-w-md">
-            <div class="order-number mr-4">${index + 1}. </div>
-            <div class="menu-item-main flex-grow">
-                <p class="menu-item-title font-bold">${item.name}</p>
-                <p class="menu-item-description">${item.description}</p>
-            </div>
-            <span class="menu-item-price ml-4">${item.price},-</span>
-            <button class="edit-item-btn" data-index="${index}">Edit</button>
+    <div id="menu-item-${item.id}" class="menu-item bg-gray-200 flex flex-row justify-between max-w-6xl sm:max-w-md">
+        <div class="order-number mr-4">${index + 1}. </div>
+        <div class="menu-item-main flex-grow">
+            <p class="menu-item-title font-bold">${item.name}</p>
+            <p class="menu-item-description">${item.description}</p>
         </div>
-    `;
+        <span class="menu-item-price ml-4">${item.price},-</span>
+        <button class="edit-item-btn" data-index="${index}">Edit</button>
+    </div>
+  `;
 }
 
 document.addEventListener('DOMContentLoaded', async function () {
@@ -92,18 +91,43 @@ document.addEventListener('DOMContentLoaded', async function () {
                     const editedMenuItem = createMenuItem(itemToEdit, index);
                     menuItems.children[index].outerHTML = editedMenuItem;
                     document.querySelector('#edit-item-modal').classList.add('hidden');
-                    updateMenu(menuData);
-                }
+                    updateMenuItem(itemToEdit, itemToEdit.id);
+
+                };
+
             }
         });
+
+        document.querySelector('#close-edit-modal-btn').addEventListener('click', () => {
+            document.querySelector('#edit-item-modal').classList.add('hidden');
+        });
+
+        // Function to update menu item via API
+        async function updateMenuItem(item, itemId) {
+            try {
+                const response = await fetch(`http://localhost:8080/menuItem/menuItems/${itemId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(item)
+                });
+
+                if (response.ok) {
+                    const updatedItem = await response.json();
+                    console.log('Updated menu item:', updatedItem);
+                } else {
+                    console.error('Failed to update menu item:', response.status);
+                }
+            } catch (error) {
+                console.error('Error updating menu item:', error);
+            }
+        }
+
 
     } catch (error) {
         console.log(error);
     }
-});
-
-document.querySelector('#close-edit-modal-btn').addEventListener('click', () => {
-    document.querySelector('#edit-item-modal').classList.add('hidden');
 });
 
 window.onload = async function () {
@@ -114,15 +138,15 @@ window.onload = async function () {
 
         menuData.menuItems.forEach((item, index) => {
             const menuItem = `
-                <div id="menu-item-${item.id}" class="menu-item bg-gray-200 flex flex-row justify-between max-w-6xl sm:max-w-md">
-                    <div class="order-number mr-4">${index + 1}. </div>
-                    <div class="menu-item-main flex-grow">
-                        <p class="menu-item-title font-bold">${item.name}</p>
-                        <p class="menu-item-description">${item.description}</p>
-                    </div>
-                    <span class="menu-item-price ml-4">${item.price},-</span>
-                </div>
-            `;
+          <div id="menu-item-${item.id}" class="menu-item bg-gray-200 flex flex-row justify-between max-w-6xl sm:max-w-md">
+              <div class="order-number mr-4">${index + 1}. </div>
+              <div class="menu-item-main flex-grow">
+                  <p class="menu-item-title font-bold">${item.name}</p>
+                  <p class="menu-item-description">${item.description}</p>
+              </div>
+              <span class="menu-item-price ml-4">${item.price},-</span>
+          </div>
+      `;
 
             menuItems.innerHTML += menuItem;
         });
@@ -132,7 +156,7 @@ window.onload = async function () {
         new Sortable(menuItems, {
             animation: 150,
             handle: ".menu-item",
-            onEnd: function() {
+            onEnd: function () {
                 const newOrder = [];
                 Array.from(menuItems.children).forEach((child, index) => {
                     const orderNumber = child.querySelector('.order-number');
@@ -141,15 +165,32 @@ window.onload = async function () {
                     newOrder.push(menuData.menuItems.find(item => item.id === id));
                 });
                 menuData.menuItems = newOrder;
-                updateMenu(menuData);
+                updateMenuItemOrder(newOrder);
             }
         });
     } catch (error) {
         console.log(error);
     }
-}
+};
 
-async function updateMenu(menuData) {
-// Mocking the updateMenu function to just log the updated data
-    console.log("Updating menu data:", menuData);
+// Function to update menu item order via API
+async function updateMenuItemOrder(menuItems) {
+    try {
+        const response = await fetch('http://localhost:8080/menuItem/updateMenuItems', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(menuItems)
+        });
+
+        if (response.ok) {
+            const updatedItems = await response.json();
+            console.log('Updated menu item order:', updatedItems);
+        } else {
+            console.error('Failed to update menu item order:', response.status);
+        }
+    } catch (error) {
+        console.error('Error updating menu item order:', error);
+    }
 }
