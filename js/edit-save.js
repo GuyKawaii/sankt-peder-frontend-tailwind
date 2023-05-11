@@ -58,7 +58,7 @@ function createMenuItem(item, index) {
                 <p class="menu-item-description">${item.description}</p>
             </div>
             <span class="menu-item-price ml-4">${item.price},-</span>
-            <button class="delete-item-btn" data-index="${index}">Delete</button>
+            <button class="edit-item-btn" data-index="${index}">Edit</button>
         </div>
     `;
 }
@@ -76,54 +76,34 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         menuName.innerHTML = menuData.name;
 
-        // Event listeners + modal som deaktiverer alt andet end modalen selv. Dvs når pop-up boxen kommer frem
-        //kan man ikke andet :D smart var????
-        document.querySelector('#add-item-btn').addEventListener('click', () => {
-            document.querySelector('#add-item-modal').classList.remove('hidden');
-        });
-
-        document.querySelector('#close-modal-btn').addEventListener('click', () => {
-            document.querySelector('#add-item-modal').classList.add('hidden');
-        });
-
-        document.querySelector('#add-item-form').addEventListener('submit', (event) => {
-            event.preventDefault();
-            const name = document.querySelector('#item-name').value;
-            const description = document.querySelector('#item-description').value;
-            const price = document.querySelector('#item-price').value;
-
-            const newItem = {
-                id: Math.max(...menuData.menuItems.map(item => item.id)) + 1,
-                name: name,
-                description: description,
-                price: price
-            };
-
-            menuData.menuItems.push(newItem);
-            postMenuItem(newItem);
-            menuItems.innerHTML += createMenuItem(newItem, menuData.menuItems.length - 1);
-
-            // Clear input fields
-            document.querySelector('#item-name').value = '';
-            document.querySelector('#item-description').value = '';
-            document.querySelector('#item-price').value = '';
-
-            // Close modal
-            document.querySelector('#add-item-modal').classList.add('hidden');
-        });
-
         document.querySelector('#menu-items').addEventListener('click', (event) => {
-            if (event.target.matches('.delete-item-btn')) {
+            if (event.target.matches('.edit-item-btn')) {
                 const index = parseInt(event.target.dataset.index, 10);
-                deleteMenuItem(menuData.menuItems[index].id);  // <-- New line
-                menuData.menuItems.splice(index, 1);
-                menuItems.removeChild(menuItems.children[index]);
+                const itemToEdit = menuData.menuItems[index];
+                document.querySelector('#edit-item-name').value = itemToEdit.name;
+                document.querySelector('#edit-item-description').value = itemToEdit.description;
+                document.querySelector('#edit-item-price').value = itemToEdit.price;
+                document.querySelector('#edit-item-modal').classList.remove('hidden');
+                document.querySelector('#edit-item-form').onsubmit = function (event) {
+                    event.preventDefault();
+                    itemToEdit.name = document.querySelector('#edit-item-name').value;
+                    itemToEdit.description = document.querySelector('#edit-item-description').value;
+                    itemToEdit.price = document.querySelector('#edit-item-price').value;
+                    const editedMenuItem = createMenuItem(itemToEdit, index);
+                    menuItems.children[index].outerHTML = editedMenuItem;
+                    document.querySelector('#edit-item-modal').classList.add('hidden');
+                    updateMenu(menuData);
+                }
             }
         });
 
     } catch (error) {
         console.log(error);
     }
+});
+
+document.querySelector('#close-edit-modal-btn').addEventListener('click', () => {
+    document.querySelector('#edit-item-modal').classList.add('hidden');
 });
 
 window.onload = async function () {
@@ -169,65 +149,7 @@ window.onload = async function () {
     }
 }
 
-async function postMenuItem(menuItem) {
-    try {
-        const response = await fetch('http://localhost:8080/menuItem/postMenuItem', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(menuItem)
-        });
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        console.log("Posted menu item:", data);
-        return data;
-    } catch (error) {
-        console.error(error);
-        alert("An error occurred while posting the menu item. Please try again.");
-        return null;
-    }
-}
-
-async function deleteMenuItem(id) {
-    try {
-        const response = await fetch(`http://localhost:8080/menuItem/deleteMenuItem/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.status;
-    } catch (error) {
-        console.error(error);
-        alert("An error occurred while deleting the menu item. Please try again.");
-        return null;
-    }
-}
-
 async function updateMenu(menuData) {
-    try {
-        const response = await fetch('http://localhost:8080/menuItem/updateMenuItems', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(menuData.menuItems)
-        });
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        console.log("Updated menu data:", data);
-        return data;
-    } catch (error) {
-        console.error(error);
-        alert("An error occurred while updating the menu. Please try again.");
-        return null;
-    }
+// Mocking the updateMenu function to just log the updated data
+    console.log("Updating menu data:", menuData);
 }

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit and save items on the menu card</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/admin-css/edit-save.css">
+
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<div class="container-fluid">
+    <a class="navbar-brand" href="admin-landingpage.html">Admin page</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="ResponsiveMenu.html">Drag-and-drop (placeholder)</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="add-delete-menu-items.html">Add-Delete items (placeholder)</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="edit-save-menu-items.html">Edit-Save items (placeholder)</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <button id="btn-admin-logout" class="btn btn-dark">Logout</button>
+            </li>
+        </ul>
+    </div>
+</div>
+</nav>
+
+<div class="container mt-5">
+    <div id="menu-name" class="text-center mb-5"></div>
+    <div id="menu-items"></div>
+</div>
+
+<div id="edit-item-modal" class="hidden fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50">
+    <div class="w-full h-full flex items-center justify-center">
+        <div class="bg-white rounded p-6">
+            <h3 class="mb-4">Edit Menu Item</h3>
+            <form id="edit-item-form">
+                <label for="edit-item-name">Name:</label>
+                <input type="text" id="edit-item-name" required>
+                <br>
+                <label for="edit-item-description">Description:</label>
+                <input type="text" id="edit-item-description" required>
+                <br>
+                <label for="edit-item-price">Price:</label>
+                <input type="number" id="edit-item-price" required>
+                <br>
+                <button type="submit">Save Changes</button>
+                <button type="button" id="close-edit-modal-btn">Close</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="../js/REST_API.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.10.2/Sortable.min.js" defer></script>
+<script src="../js/edit-save.js" defer></script>
+
+</body>
+</html>
