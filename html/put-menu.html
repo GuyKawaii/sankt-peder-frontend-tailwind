@@ -1,32 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
   <title>Update/Delete Menu</title>
   <link rel="stylesheet" href="../css/put-menu.css">
-
 </head>
 <body>
 <h1>Update/Delete Menu</h1>
-<form id="update-menu-form">
-  <label for="menu-select">Choose a menu:</label>
-  <select id="menu-select" name="menu-select" required>
+<form id="menuForm">
+  <label for="menuSelect">Select Menu:</label>
+  <select id="menuSelect" name="menuId">
     <option value="">Select a menu</option>
-  </select><br><br>
+    <!-- Populate menu options dynamically using JavaScript -->
+  </select>
+  <br><br>
 
-  <label for="name">Name:</label>
+  <label for="name">New Menu Name:</label>
   <input type="text" id="name" name="name" required><br><br>
 
-  <label for="description">Description:</label>
-  <textarea id="description" name="description" required></textarea><br><br>
-
-  <label for="price">Price:</label>
-  <input type="text" id="price" name="price" required><br><br>
-
-  <input type="submit" value="Update Menu">
-  <button id="delete-menu-button">Delete Menu</button>
+  <input type="submit" value="Update Menu" id="updateBtn">
+  <input type="button" value="Delete Menu" id="deleteBtn">
 </form>
-<script src="../js/put-menu.js"></script>
 
+<script src="../js/put-menu.js"></script>
 </body>
 </html>

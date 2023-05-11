@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Update/Delete Menu Item</title>
+</head>
+<body>
+<h1>Update/Delete Menu Item</h1>
+
+<form id="menuItemForm">
+  <label for="menuItemSelect">Select a Menu Item:</label>
+  <select id="menuItemSelect" onchange="populateForm()" required>
+    <option value="">Select a menu item</option>
+    <!-- Menu item options will be dynamically populated by JavaScript -->
+  </select><br>
+
+  <label for="itemId">Item ID:</label>
+  <input type="text" id="itemId" required><br>
+
+  <label for="name">Name:</label>
+  <input type="text" id="name" required><br>
+
+  <label for="description">Description:</label>
+  <input type="text" id="description" required><br>
+
+  <label for="price">Price:</label>
+  <input type="number" id="price" required><br>
+
+  <label for="menuSelect">Menu:</label>
+  <select id="menuSelect" required>
+    <option value="">Select a menu</option>
+    <!-- Menu options will be dynamically populated by JavaScript -->
+  </select><br>
+
+  <button type="submit">Update</button>
+</form>
+
+<button id="deleteButton">Delete</button>
+
+<script src="../js/put-menuitem.js"></script>
+</body>
+</html>

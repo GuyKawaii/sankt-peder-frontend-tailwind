@@ -1,33 +1,32 @@
-const form = document.getElementById('create-menu-form');
+document.getElementById('menuForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission
 
-form.addEventListener('submit', async (event) => {
-    event.preventDefault();
+    // Collect form data
+    var name = document.getElementById('name').value;
 
-    const name = form.elements['name'].value;
-    const description = form.elements['description'].value;
-    const price = form.elements['price'].value;
-    const picture = form.elements['picture'].value;
-
-    const menuItem = {
-        name: name,
-        description: description,
-        price: price,
-        picture: picture
+    // Create menu object
+    var menu = {
+        name: name
     };
 
-    const response = await fetch('http://localhost:8080/menuItem', {
+    // Make POST request to the server
+    fetch('http://localhost:8080/menu', {
         method: 'POST',
         headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('token'),
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(menuItem)
-    });
-
-    if (response.ok) {
-        alert('Menu created successfully!');
-        form.reset();
-    } else {
-        alert('Error creating menu');
-    }
+        body: JSON.stringify(menu)
+    })
+        .then(function(response) {
+            if (response.ok) {
+                alert('Menu created successfully!');
+                location.reload(); // Refresh the page
+            } else {
+                throw new Error('Error creating menu');
+            }
+        })
+        .catch(function(error) {
+            console.log(error);
+            alert('An error occurred while creating the menu');
+        });
 });
