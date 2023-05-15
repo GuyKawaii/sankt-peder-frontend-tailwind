@@ -145,14 +145,13 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         document.querySelectorAll('.delete-item-btn').forEach(deleteButton => {
             deleteButton.addEventListener('click', async (event) => {
-                const menuId = parseInt(event.target.dataset.menuId, 10);
-                const index = parseInt(event.target.dataset.index, 10);
+                const menuItemId = parseInt(event.target.dataset.menuItemId, 10);
 
                 try {
-                    await deleteMenuItem(menusData[menuId].menuItems[index].id);
-                    menusData[menuId].menuItems.splice(index, 1);
-                    const menuItemsContainer = document.querySelector(`#menu-items-${menuId}`);
-                    menuItemsContainer.removeChild(menuItemsContainer.children[index]);
+                    await deleteMenuItem(menuItemId);
+
+                    // Perform any necessary UI updates after successful deletion
+                    event.target.parentElement.remove();
                 } catch (error) {
                     console.error(error);
                     alert("An error occurred while deleting the menu item. Please try again.");
@@ -264,18 +263,21 @@ async function postMenuItem(menuId, menuItem, menusData) { // Add menusData as a
     }
 }
 
-async function deleteMenuItem(menuId, menuItemId) {
+async function deleteMenuItem(menuItemId) {
     try {
-        const response = await fetch(`http://localhost:8080/menu/${menuId}/menuItems/${menuItemId}`, {
+        const response = await fetch(`http://localhost:8080/menuItem/deleteMenuItem/${menuItemId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             }
         });
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
+
         console.log("Deleted menu item:", menuItemId);
+        return true;
     } catch (error) {
         console.error(error);
         throw error;

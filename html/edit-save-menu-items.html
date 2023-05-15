@@ -40,8 +40,17 @@
 
 <div class="container mt-5">
     <div id="menu-name" class="text-center mb-5"></div>
-    <div id="menu-items"></div>
+    <div class="menu-items-group">
+        <h2 class="menu-header">Menu Header 1</h2>
+        <div id="menu-items-1"></div>
+    </div>
+    <div class="menu-items-group">
+        <h2 class="menu-header">Menu Header 2</h2>
+        <div id="menu-items-2"></div>
+    </div>
 </div>
+
+
 
 <div id="edit-item-modal" class="hidden fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50">
     <div class="w-full h-full flex items-center justify-center">
@@ -63,6 +72,7 @@
         </div>
     </div>
 </div>
+
 
 <script src="../js/REST_API.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.10.2/Sortable.min.js" defer></script>
