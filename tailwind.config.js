@@ -11,7 +11,18 @@ module.exports = {
 
   },
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'primary': '#20591d',
+        'secondary': {
+            100: '#cf2b2b',
+            200: '#408c42',
+
+
+
+        }
+      }
+    },
   },
   plugins: [],
 }
