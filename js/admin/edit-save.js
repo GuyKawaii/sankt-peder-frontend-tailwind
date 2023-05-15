@@ -75,7 +75,9 @@ async function updateMenuItem(item, itemId) {
 document.addEventListener('DOMContentLoaded', async function () {
     try {
         let menuData = await getMenus();
-        const menuItems = document.querySelectorAll('.menu-items-group');
+        const menuItems = document.querySelector('#menu-items');
+
+
         const menuName = document.querySelector('#menu-name');
 
         menuData.forEach((menu) => {
@@ -95,8 +97,8 @@ document.addEventListener('DOMContentLoaded', async function () {
                 const menuItem = event.target.closest('.menu-item');
                 console.log('menuItem:', menuItem);
 
-                const menuGroup = event.target.closest('.menu-items-group');
-                const menuHeader = menuGroup.previousElementSibling;
+                const menuGroup = menuItem.closest('.menu-items-group');
+                const menuHeader = menuGroup.closest('.menu-items-group').querySelector('.menu-header');
                 console.log('menuHeader:', menuHeader);
 
         const menuIndex = Array.from(menuItems.children).indexOf(menuHeader.nextElementSibling);
