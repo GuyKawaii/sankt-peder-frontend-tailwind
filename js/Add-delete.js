@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             };
 
             try {
-                const response = await postMenuItem(selectedMenuId, newItem);
+                const response = await postMenuItem(selectedMenuId, newItem, menusData); // Pass menusData as a parameter
                 if (response) {
                     menusData.forEach((menuData) => {
                         if (menuData.id === selectedMenuId) {
@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 alert('An error occurred while posting the menu item. Please try again.');
             }
         }
+
 
         menusData.forEach(menuData => {
             const menuId = menuData.id;
@@ -212,29 +213,55 @@ window.onload = async function () {
     }
 }
 
-async function postMenuItem(menuId, menuItem) {
-    let menu = await getMenu(menuId);
-    menu.menuItems.push(menuItem);
-    console.log(menu);
+async function postMenuItem(menuId, menuItem, menusData) { // Add menusData as a parameter
+    const menu = {
+        id: menuId,
+        name: "Updated Menu Name" // Update the menu name accordingly
+    };
+
+    const updatedMenuItems = menusData.find((menuData) => menuData.id === menuId).menuItems.map((item) => {
+        return {
+            id: item.id, // Update the ID accordingly
+            name: item.name,
+            description: item.description,
+            price: item.price,
+            image: {
+                id: item.image.id // Update the image ID accordingly
+            }
+        };
+    });
+
+    updatedMenuItems.push({
+        name: menuItem.name,
+        description: menuItem.description,
+        price: menuItem.price
+    });
+
+    const payload = {
+        menu: menu,
+        menuItems: updatedMenuItems
+    };
+
     try {
         const response = await fetch(`http://localhost:8080/menu/${menuId}/updateMenuAndItems`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(menu),
+            body: JSON.stringify(payload),
         });
 
         if (!response.ok) {
-                     throw new Error(`HTTP error! status: ${response.status}`);
-                 }
-                 const data = await response.json();
-                 console.log("Put menu item:", data);
-                 return data;
-             } catch (error) {
-                 console.error(error);
-                 throw error;
-             }
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("Put menu item:", data);
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
 }
 
 async function deleteMenuItem(menuId, menuItemId) {
