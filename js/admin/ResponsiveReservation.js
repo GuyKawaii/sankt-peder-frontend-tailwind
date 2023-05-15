@@ -2,91 +2,111 @@ const menuSelect = document.getElementById('menu');
 const courseSelect = document.getElementById('course');
 const selectedCoursesContainer = document.getElementById('selected-courses-container');
 let selectedCourses = [];
-let menusData = [];
-let maxItemsFromMenu2 = 3;
 
-// Fetch menu data from the API
+let menuData;
+
+// Fetch menu data from the API once
 async function fetchMenuData() {
-    const menuIds = [1, 2];  // Replace with actual menu IDs
-    for (let i = 0; i < menuIds.length; i++) {
-        const response = await axios.get(`http://localhost:8080/menu/${menuIds[i]}`);
-        menusData.push(response.data);
+    const menus = [1, 2];  // Replace with actual menu IDs
+    menuData = await Promise.all(menus.map(async (menuId) => {
+        const response = await axios.get(`http://localhost:8080/menu/${menuId}`);
+        return response.data;
+    }));
+
+    menuData.forEach((menu) => {
         const option = document.createElement('option');
-        option.value = response.data.id;
-        option.textContent = response.data.name;
+        option.value = menu.id;
+        option.textContent = menu.name;
+        if (menu.id == '2') { // Disable menu 2 by default
+            option.disabled = true;
+        }
         menuSelect.append(option);
-    }
+    });
+}
+
+
+// Event listeners
+document.getElementById('people').addEventListener('change', updateMenuAvailability);
+document.getElementById('date').addEventListener('change', updateMenuAvailability);
+
+function updateMenuAvailability() {
+    console.log('updateMenuAvailability');
+    const people = document.getElementById('people').value;
+    const time = document.getElementById('date').value;
+
+    const isPeopleCountValid = 20 <= people;
+    const hour = new Date(time).getHours();
+    const isTimeValid = 18 <= hour;
+
+    const isMenu2Available = isPeopleCountValid && isTimeValid;
+    const menu2Option = menuSelect.querySelector('option[value="2"]');
+    menu2Option.disabled = !isMenu2Available;
 }
 
 // Fetch course data when a menu is selected
-menuSelect.addEventListener('change', async (e) => {
-    courseSelect.innerHTML = '';  // Clear previous course options
+menuSelect.addEventListener('click', async (e) => {
     const menuId = e.target.value;
-    const selectedMenuData = menusData.find(menu => menu.id === parseInt(menuId));
-    const maxItems = (menuId === '2' && document.getElementById('people').value > 25) ? maxItemsFromMenu2 : Infinity;
-    selectedMenuData.menuItems.slice(0, maxItems).forEach((item) => {
+    const selectedOption = e.target.options[e.target.selectedIndex];
+    if (selectedOption.disabled) {
+        return; // Don't fetch courses if the selected menu is disabled
+    }
+    courseSelect.innerHTML = '';  // Clear previous course options
+    const menu = menuData.find((menu) => menu.id == menuId);
+    menu.menuItems.forEach((item) => {
         const option = document.createElement('option');
         option.value = item.id;
-        option.textContent = `${item.name} - ${item.description} - $${item.price}`;
+        option.textContent = `${item.name}`;
         courseSelect.append(option);
     });
 });
 
-// Add course to the selected courses when a course is selected
-courseSelect.addEventListener('change', (e) => {
-    if (selectedCourses.length >= 3) {  // Maximum limit for a 3-course meal
+
+
+// Initialize an id counter
+let idCounter = 1;
+
+// Get the "Add" button
+const addCourseBtn = document.getElementById('add-course-btn');
+
+// Add course to the selected courses when the "Add" button is clicked
+addCourseBtn.addEventListener('click', () => {
+    const courseId = courseSelect.value;
+    const menuId = courseSelect.querySelector(`option[value="${courseId}"]`).parentNode.value;
+    const courseName = courseSelect.options[courseSelect.selectedIndex].textContent;
+
+    if (selectedCourses.length >= 3) {
         alert('You can only select 3 courses.');
         return;
     }
-    const courseId = e.target.value;
-    const courseName = e.target.options[e.target.selectedIndex].textContent;
-    selectedCourses.push(courseId);
 
-    const courseElement = `
-            <div class="flex justify-between items-center" data-id="${courseId}">
-                <span>${courseName}</span>
-                <button type="button" class="bg-red-500 text-white px-2 py-1 rounded" onclick="removeCourse(${courseId})">Remove</button>
-            </div>`;
+    selectedCourses.push({"courseId": courseId, "menuId": menuId, "selectId": idCounter});
+    console.log(selectedCourses);
 
-    selectedCoursesContainer.innerHTML += courseElement;
+    const courseElement = document.createElement('div');
+    courseElement.id = `course-${idCounter}`; // Assign the id here
+    courseElement.className = 'flex justify-between items-center';
+    courseElement.innerHTML = `
+        <span>${courseName}</span>
+        <button type="button" class="bg-red-500 text-white px-2 py-1 rounded" onclick="removeCourse(${idCounter})">Remove</button>
+    `;
+    selectedCoursesContainer.append(courseElement);
+
+    idCounter++; // Increment the id counter
 });
 
-// Remove a course from the selected courses when its "Remove" button is clicked
-function removeCourse(courseId) {
-    const courseIndex = selectedCourses.indexOf(courseId);
-    if (courseIndex > -1) {
-        selectedCourses.splice(courseIndex, 1);
-        const courseElement = selectedCoursesContainer.querySelector(`[data-id="${courseId}"]`);
-        selectedCoursesContainer.removeChild(courseElement);
+// Remove a course from the selected courses
+function removeCourse(id) {
+    selectedCourses = selectedCourses.filter(course => course.selectId !== id);
+    const elementToRemove = document.getElementById(`course-${id}`);
+    if (elementToRemove) {
+        elementToRemove.parentNode.removeChild(elementToRemove);
     }
+    console.log(selectedCourses);
 }
 
-// Update menu options when the number of people or reservation time changes
-['people', 'date'].forEach(id => {
-    document.getElementById(id).addEventListener('change', () => {
-        const numPeople = document.getElementById('people').value;
-        const reservationTime = new Date(document.getElementById('date').value);
-        const hour = reservationTime.getUTCHours();
-        if (numPeople > 25 && hour >= 12 && hour <= 17) {
-            document.querySelector('option[value="2"]').disabled = true;
-            if (menuSelect.value === '2') {
-                menuSelect.value = '1';
-                menuSelect.dispatchEvent(new Event('change'));
-            }
-        } else {
-            document.querySelector('option[value="2"]').disabled = false;
-        }
-    });
-});
+// Handle form submission
+const form = document.getElementById('reservation-form');
+
 
 // Load menu data on page load
 window.onload = fetchMenuData;
-
-// Add event listener to the form submission
-document.getElementById('reservation-form').addEventListener('submit', (event) => {
-    event.preventDefault();  // Stop form from submitting normally
-    // Here you can add your code to handle form submission.
-    // You have the selectedCourses array that contains the IDs of selected courses.
-    console.log(selectedCourses);  // For demonstration purposes
-});
-

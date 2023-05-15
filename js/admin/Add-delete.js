@@ -1,44 +1,18 @@
-const menuPlaceHolder = {
-    "id": 1,
-    "name": "Updated Menu Name 2",
-    "menuItems": [
-        {
-            "id": 1,
-            "name": "Updated MenuItem 1 2",
-            "description": "Updated description for MenuItem 1",
-            "price": "99,57",
-            "image": {
-                "hibernateLazyInitializer": {},
-                "id": 1,
-                "url": "https://example.com/images/karrysild.jpg"
-            }
-        },
-        {
-            "id": 2,
-            "name": "Updated MenuItem 2 2",
-            "description": "Updated description for MenuItem 2",
-            "price": "15,99",
-            "image": {
-                "hibernateLazyInitializer": {},
-                "id": 2,
-                "url": "https://example.com/images/smoked-mackerel.jpg"
-            }
-        },
-        {
-            "id": 3,
-            "name": "NEW ITEM",
-            "description": "NEW ITEM NICE 2",
-            "price": "15,99",
-            "image": {
-                "hibernateLazyInitializer": {},
-                "id": 3,
-                "url": "https://example.com/images/smoked-mackerel.jpg"
-            }
+
+async function getMenus() {
+    try {
+        const response = await fetch('http://localhost:8080/menu/menus');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-    ]
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
 }
 
-// Mocking the getMenu function to return placeholder data
 async function getMenu(menuId) {
     return fetch('http://localhost:8080/menu/' + menuId)
         .then(response => response.json())
@@ -51,75 +25,146 @@ async function getMenu(menuId) {
 
 function createMenuItem(item, index) {
     return `
-        <div id="menu-item-${item.id}" class="menu-item bg-gray-200 flex flex-row justify-between max-w-6xl sm:max-w-md">
-            <div class="order-number mr-4">${index + 1}. </div>
-            <div class="menu-item-main flex-grow">
-                <p class="menu-item-title font-bold">${item.name}</p>
-                <p class="menu-item-description">${item.description}</p>
-            </div>
-            <span class="menu-item-price ml-4">${item.price},-</span>
-            <button class="delete-item-btn" data-index="${index}">Delete</button>
-        </div>
-    `;
+  <div id="menu-item-${item.id}" class="menu-item bg-gray-200 flex flex-row justify-between max-w-6xl sm:max-w-md">
+      <div class="order-number mr-4">${index + 1}. </div>
+      <div class="menu-item-main flex-grow">
+          <p class="menu-item-title font-bold">${item.name}</p>
+          <p class="menu-item-description">${item.description}</p>
+      </div>
+      <span class="menu-item-price ml-4">${item.price},-</span>
+      <button class="delete-item-btn" data-menu-id="${item.menuId}" data-index="${index}">Delete</button>
+  </div>
+`;
 }
 
 document.addEventListener('DOMContentLoaded', async function () {
     try {
-        let menuData = await getMenu(1);
+        let menusData = await getMenus();
         const menuItems = document.querySelector('#menu-items');
         const menuName = document.querySelector('#menu-name');
+        const addItemForm = document.querySelector('#add-item-form');
+        const addItemModal = document.querySelector('#add-item-modal');
+        const menuDropdown = document.querySelector('#menu-dropdown'); // Added menu dropdown element
 
-        menuData.menuItems.forEach((item, index) => {
-            const menuItem = createMenuItem(item, index);
-            menuItems.innerHTML += menuItem;
+        let selectedMenuId = null; // Variable to store the selected menu ID
+        menuDropdown.addEventListener('change', function (event) {
+            selectedMenuId = parseInt(event.target.value, 10);
         });
 
-        menuName.innerHTML = menuData.name;
+// Function to populate the menu dropdown
+        function populateMenuDropdown(menusData) {
+            const menuDropdown = document.querySelector('#menu-dropdown');
+            menuDropdown.innerHTML = ''; // Clear the dropdown before populating
 
-        // Event listeners + modal som deaktiverer alt andet end modalen selv. Dvs når pop-up boxen kommer frem
-        //kan man ikke andet :D smart var????
-        document.querySelector('#add-item-btn').addEventListener('click', () => {
-            document.querySelector('#add-item-modal').classList.remove('hidden');
-        });
+            menusData.forEach(menu => {
+                const option = document.createElement('option');
+                option.value = menu.id;
+                option.text = menu.name;
+                menuDropdown.appendChild(option);
+            });
+        }
 
-        document.querySelector('#close-modal-btn').addEventListener('click', () => {
-            document.querySelector('#add-item-modal').classList.add('hidden');
-        });
+        function handleMenuDropdownChange() {
+            selectedMenuId = parseInt(menuDropdown.value, 10);
+        }
 
-        document.querySelector('#add-item-form').addEventListener('submit', (event) => {
+        function resetAddItemForm() {
+            addItemForm.reset();
+            selectedMenuId = null; // Reset the selected menu ID
+        }
+
+        function openAddItemModal() {
+            addItemModal.classList.remove('hidden');
+        }
+
+        function closeAddItemModal() {
+            addItemModal.classList.add('hidden');
+        }
+
+        async function handleAddItemFormSubmit(event) {
             event.preventDefault();
             const name = document.querySelector('#item-name').value;
             const description = document.querySelector('#item-description').value;
             const price = document.querySelector('#item-price').value;
 
+            if (!selectedMenuId) {
+                alert('Please select a menu before adding an item.');
+                return;
+            }
+
             const newItem = {
-                id: Math.max(...menuData.menuItems.map(item => item.id)) + 1,
                 name: name,
                 description: description,
-                price: price
+                price: price,
             };
 
-            menuData.menuItems.push(newItem);
-            postMenuItem(newItem);
-            menuItems.innerHTML += createMenuItem(newItem, menuData.menuItems.length - 1);
-
-            // Clear input fields
-            document.querySelector('#item-name').value = '';
-            document.querySelector('#item-description').value = '';
-            document.querySelector('#item-price').value = '';
-
-            // Close modal
-            document.querySelector('#add-item-modal').classList.add('hidden');
-        });
-
-        document.querySelector('#menu-items').addEventListener('click', (event) => {
-            if (event.target.matches('.delete-item-btn')) {
-                const index = parseInt(event.target.dataset.index, 10);
-                deleteMenuItem(menuData.menuItems[index].id);  // <-- New line
-                menuData.menuItems.splice(index, 1);
-                menuItems.removeChild(menuItems.children[index]);
+            try {
+                const response = await postMenuItem(selectedMenuId, newItem, menusData); // Pass menusData as a parameter
+                if (response) {
+                    menusData.forEach((menuData) => {
+                        if (menuData.id === selectedMenuId) {
+                            menuData.menuItems.push(newItem);
+                            const menuItemsContainer = document.querySelector(`#menu-items-${selectedMenuId}`);
+                            const menuItem = createMenuItem(newItem, menuData.menuItems.length - 1);
+                            menuItemsContainer.innerHTML += menuItem;
+                            closeAddItemModal();
+                            resetAddItemForm();
+                        }
+                    });
+                } else {
+                    throw new Error('An error occurred while posting the menu item.');
+                }
+            } catch (error) {
+                console.error(error);
+                alert('An error occurred while posting the menu item. Please try again.');
             }
+        }
+
+
+        menusData.forEach(menuData => {
+            const menuId = menuData.id;
+            const menuTitle = menuData.name;
+
+            // Create menu container
+            const menuContainer = document.createElement('div');
+            menuContainer.classList.add('menu-container');
+            menuContainer.innerHTML = `
+  <h2 class="menu-title">${menuTitle}</h2>
+  <div id="menu-items-${menuId}" class="menu-items"></div>
+`;
+            menuItems.appendChild(menuContainer);
+
+            const menuItemsContainer = document.querySelector(`#menu-items-${menuId}`);
+
+            // Add menu items
+            menuData.menuItems.forEach((item, index) => {
+                const menuItem = createMenuItem(item, index);
+                menuItemsContainer.innerHTML += menuItem;
+            });
         });
+
+        document.querySelectorAll('.delete-item-btn').forEach(deleteButton => {
+            deleteButton.addEventListener('click', async (event) => {
+                const menuId = parseInt(event.target.dataset.menuId, 10);
+                const index = parseInt(event.target.dataset.index, 10);
+
+                try {
+                    await deleteMenuItem(menusData[menuId].menuItems[index].id);
+                    menusData[menuId].menuItems.splice(index, 1);
+                    const menuItemsContainer = document.querySelector(`#menu-items-${menuId}`);
+                    menuItemsContainer.removeChild(menuItemsContainer.children[index]);
+                } catch (error) {
+                    console.error(error);
+                    alert("An error occurred while deleting the menu item. Please try again.");
+                }
+            });
+        });
+
+        populateMenuDropdown(menusData);
+
+        addItemForm.addEventListener('submit', handleAddItemFormSubmit);
+        document.querySelector('#add-item-btn').addEventListener('click', openAddItemModal);
+        document.querySelector('#close-modal-btn').addEventListener('click', closeAddItemModal);
 
     } catch (error) {
         console.log(error);
@@ -128,22 +173,21 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 window.onload = async function () {
     try {
-        let menuData = await getMenu(1);
+        let menuData = await getMenus();
         const menuItems = document.querySelector('#menu-items');
         const menuName = document.querySelector('#menu-name');
 
         menuData.menuItems.forEach((item, index) => {
             const menuItem = `
-                <div id="menu-item-${item.id}" class="menu-item bg-gray-200 flex flex-row justify-between max-w-6xl sm:max-w-md">
-                    <div class="order-number mr-4">${index + 1}. </div>
-                    <div class="menu-item-main flex-grow">
-                        <p class="menu-item-title font-bold">${item.name}</p>
-                        <p class="menu-item-description">${item.description}</p>
-                    </div>
-                    <span class="menu-item-price ml-4">${item.price},-</span>
-                </div>
-            `;
-
+        <div id="menu-item-${item.id}" class="menu-item bg-gray-200 flex flex-row justify-between max-w-6xl sm:max-w-md">
+          <div class="order-number mr-4">${index + 1}. </div>
+          <div class="menu-item-main flex-grow">
+              <p class="menu-item-title font-bold">${item.name}</p>
+            <p class="menu-item-description">${item.description}</p>
+          </div>
+          <span class="menu-item-price ml-4">${item.price},-</span>
+        </div>
+`;
             menuItems.innerHTML += menuItem;
         });
 
@@ -152,7 +196,7 @@ window.onload = async function () {
         new Sortable(menuItems, {
             animation: 150,
             handle: ".menu-item",
-            onEnd: function() {
+            onEnd: function () {
                 const newOrder = [];
                 Array.from(menuItems.children).forEach((child, index) => {
                     const orderNumber = child.querySelector('.order-number');
@@ -169,31 +213,60 @@ window.onload = async function () {
     }
 }
 
-async function postMenuItem(menuItem) {
+async function postMenuItem(menuId, menuItem, menusData) { // Add menusData as a parameter
+    const menu = {
+        id: menuId,
+        name: "Updated Menu Name" // Update the menu name accordingly
+    };
+
+    const updatedMenuItems = menusData.find((menuData) => menuData.id === menuId).menuItems.map((item) => {
+        return {
+            id: item.id, // Update the ID accordingly
+            name: item.name,
+            description: item.description,
+            price: item.price,
+            image: {
+                id: item.image.id // Update the image ID accordingly
+            }
+        };
+    });
+
+    updatedMenuItems.push({
+        name: menuItem.name,
+        description: menuItem.description,
+        price: menuItem.price
+    });
+
+    const payload = {
+        menu: menu,
+        menuItems: updatedMenuItems
+    };
+
     try {
-        const response = await fetch('http://localhost:8080/menuItem/postMenuItem', {
-            method: 'POST',
+        const response = await fetch(`http://localhost:8080/menu/${menuId}/updateMenuAndItems`, {
+            method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(menuItem)
+            body: JSON.stringify(payload),
         });
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
+
         const data = await response.json();
-        console.log("Posted menu item:", data);
+        console.log("Put menu item:", data);
         return data;
     } catch (error) {
         console.error(error);
-        alert("An error occurred while posting the menu item. Please try again.");
-        return null;
+        throw error;
     }
 }
 
-async function deleteMenuItem(id) {
+async function deleteMenuItem(menuId, menuItemId) {
     try {
-        const response = await fetch(`http://localhost:8080/menuItem/deleteMenuItem/${id}`, {
+        const response = await fetch(`http://localhost:8080/menu/${menuId}/menuItems/${menuItemId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -202,11 +275,10 @@ async function deleteMenuItem(id) {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.status;
+        console.log("Deleted menu item:", menuItemId);
     } catch (error) {
         console.error(error);
-        alert("An error occurred while deleting the menu item. Please try again.");
-        return null;
+        throw error;
     }
 }
 
@@ -227,7 +299,6 @@ async function updateMenu(menuData) {
         return data;
     } catch (error) {
         console.error(error);
-        alert("An error occurred while updating the menu. Please try again.");
-        return null;
+        throw error;
     }
 }
