@@ -80,7 +80,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         function closeAddItemModal() {
             addItemModal.classList.add('hidden');
         }
-
         async function handleAddItemFormSubmit(event) {
             event.preventDefault();
             const name = document.querySelector('#item-name').value;
@@ -101,16 +100,19 @@ document.addEventListener('DOMContentLoaded', async function () {
             try {
                 const response = await postMenuItem(selectedMenuId, newItem, menusData); // Pass menusData as a parameter
                 if (response) {
-                    menusData.forEach((menuData) => {
-                        if (menuData.id === selectedMenuId) {
-                            menuData.menuItems.push(newItem);
-                            const menuItemsContainer = document.querySelector(`#menu-items-${selectedMenuId}`);
-                            const menuItem = createMenuItem(newItem, menuData.menuItems.length - 1);
-                            menuItemsContainer.innerHTML += menuItem;
-                            closeAddItemModal();
-                            resetAddItemForm();
-                        }
-                    });
+                    const updatedMenuData = await getMenus(); // Fetch the updated menusData after posting the menu item
+                    menusData = updatedMenuData; // Update the menusData with the latest data
+                    const selectedMenu = updatedMenuData.find((menuData) => menuData.id === selectedMenuId);
+                    if (selectedMenu) {
+                        selectedMenu.menuItems.push(newItem);
+                        const menuItemsContainer = document.querySelector(`#menu-items-${selectedMenuId}`);
+                        const menuItem = createMenuItem(newItem, selectedMenu.menuItems.length - 1);
+                        menuItemsContainer.innerHTML += menuItem;
+                        closeAddItemModal();
+                        resetAddItemForm();
+                    } else {
+                        throw new Error(`Menu not found with ID: ${selectedMenuId}`);
+                    }
                 } else {
                     throw new Error('An error occurred while posting the menu item.');
                 }
@@ -212,21 +214,19 @@ window.onload = async function () {
     }
 }
 
-async function postMenuItem(menuId, menuItem, menusData) { // Add menusData as a parameter
-    const menu = {
-        id: menuId,
-        name: "Updated Menu Name" // Update the menu name accordingly
-    };
+async function postMenuItem(menuId, menuItem, menusData) {
+    const menu = menusData.find((menuData) => menuData.id === menuId);
+    if (!menu) {
+        throw new Error(`Menu not found with ID: ${menuId}`);
+    }
 
-    const updatedMenuItems = menusData.find((menuData) => menuData.id === menuId).menuItems.map((item) => {
+    const updatedMenuItems = menu.menuItems.map((item) => {
         return {
-            id: item.id, // Update the ID accordingly
+            id: item.id,
             name: item.name,
             description: item.description,
             price: item.price,
-            image: {
-                id: item.image.id // Update the image ID accordingly
-            }
+            image: item.image ? { id: item.image.id } : null
         };
     });
 
@@ -237,7 +237,10 @@ async function postMenuItem(menuId, menuItem, menusData) { // Add menusData as a
     });
 
     const payload = {
-        menu: menu,
+        menu: {
+            id: menu.id,
+            name: menu.name
+        },
         menuItems: updatedMenuItems
     };
 
@@ -262,6 +265,8 @@ async function postMenuItem(menuId, menuItem, menusData) { // Add menusData as a
         throw error;
     }
 }
+
+
 
 async function deleteMenuItem(menuItemId) {
     try {
