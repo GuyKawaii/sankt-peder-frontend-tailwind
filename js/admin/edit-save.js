@@ -1,3 +1,7 @@
+const token = localStorage.getItem("token")
+//If token existed, for example after a refresh, set UI accordingly
+console.log(token)
+
 async function getMenus() {
     try {
         const response = await fetch('http://localhost:8080/menu/menus');
@@ -67,6 +71,7 @@ async function updateMenuItem(item, itemId) {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`, // Include the token in the Authorization header
                 },
                 body: JSON.stringify(item),
             }
@@ -195,6 +200,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`, // Include the token in the Authorization header
                     },
                     body: JSON.stringify(menuData),
                 });

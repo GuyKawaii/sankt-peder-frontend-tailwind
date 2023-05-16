@@ -1,3 +1,7 @@
+const token = localStorage.getItem("token")
+//If token existed, for example after a refresh, set UI accordingly
+console.log(token)
+
 document.getElementById('menuForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent form submission
 
@@ -13,7 +17,8 @@ document.getElementById('menuForm').addEventListener('submit', function(event) {
     fetch('http://localhost:8080/menu', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
         },
         body: JSON.stringify(menu)
     })

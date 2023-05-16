@@ -1,3 +1,7 @@
+const token = localStorage.getItem("token")
+//If token existed, for example after a refresh, set UI accordingly
+console.log(token)
+
 // Fetch menu items and populate the dropdown menu
 fetch('http://localhost:8080/menuItem/menuItems')
     .then(response => response.json())
@@ -88,7 +92,8 @@ document.getElementById('menuItemForm').addEventListener('submit', function(even
     fetch(`http://localhost:8080/menuItem/menuItems/${itemId}`, {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
         },
         body: JSON.stringify(menuItem)
     })
@@ -107,7 +112,11 @@ document.getElementById('deleteButton').addEventListener('click', function() {
     const itemId = document.getElementById('itemId').value;
 
     fetch(`http://localhost:8080/menuItem/deleteMenus/${itemId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+        },
     })
         .then(response => {
             console.log('Menu item deleted');

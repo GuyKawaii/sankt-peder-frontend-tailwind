@@ -11,6 +11,9 @@ async function getMenus() {
         return null;
     }
 }
+const token = localStorage.getItem("token")
+//If token existed, for example after a refresh, set UI accordingly
+console.log(token)
 
 async function getMenu(menuId) {
     return fetch('http://localhost:8080/menu/' + menuId)
@@ -235,22 +238,22 @@ async function postMenuItem(menuId, menuItem, menusData) {
             name: item.name,
             description: item.description,
             price: item.price,
-            image: item.image ? {id: item.image.id} : null
+            image: item.image ? { id: item.image.id } : null,
         };
     });
 
     updatedMenuItems.push({
         name: menuItem.name,
         description: menuItem.description,
-        price: menuItem.price
+        price: menuItem.price,
     });
 
     const payload = {
         menu: {
             id: menu.id,
-            name: menu.name
+            name: menu.name,
         },
-        menuItems: updatedMenuItems
+        menuItems: updatedMenuItems,
     };
 
     try {
@@ -258,6 +261,7 @@ async function postMenuItem(menuId, menuItem, menusData) {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Include the token in the Authorization header
             },
             body: JSON.stringify(payload),
         });
@@ -267,7 +271,7 @@ async function postMenuItem(menuId, menuItem, menusData) {
         }
 
         const data = await response.json();
-        console.log("Put menu item:", data);
+        console.log('Put menu item:', data);
         return data;
     } catch (error) {
         console.error(error);
@@ -281,15 +285,16 @@ async function deleteMenuItem(menuItemId) {
         const response = await fetch(`http://localhost:8080/menuItem/deleteMenuItem/${menuItemId}`, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json'
-            }
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+            },
         });
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        console.log("Deleted menu item:", menuItemId);
+        console.log('Deleted menu item:', menuItemId);
         location.reload(); // Reload the page
         return true;
     } catch (error) {
@@ -297,6 +302,7 @@ async function deleteMenuItem(menuItemId) {
         throw error;
     }
 }
+
 
 async function updateMenu(menuData) {
     try {

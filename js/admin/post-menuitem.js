@@ -1,3 +1,7 @@
+const token = localStorage.getItem("token")
+//If token existed, for example after a refresh, set UI accordingly
+console.log(token)
+
 fetch('http://localhost:8080/menu/menus')
     .then(function(response) {
         if (response.ok) {
@@ -43,7 +47,8 @@ document.getElementById('menuItemForm').addEventListener('submit', function(even
     fetch('http://localhost:8080/menuItem/postMenuItem', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
         },
         body: JSON.stringify(payload)
     })
