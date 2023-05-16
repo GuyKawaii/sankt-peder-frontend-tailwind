@@ -830,7 +830,7 @@ video {
 
 .bg-primary {
   --tw-bg-opacity: 1;
-  background-color: rgb(32 89 29 / var(--tw-bg-opacity));
+  background-color: rgb(84 113 77 / var(--tw-bg-opacity));
 }
 
 .bg-red-500 {
@@ -1001,6 +1001,11 @@ video {
 .hover\:text-amber-600:hover {
   --tw-text-opacity: 1;
   color: rgb(217 119 6 / var(--tw-text-opacity));
+}
+
+.hover\:text-primary:hover {
+  --tw-text-opacity: 1;
+  color: rgb(84 113 77 / var(--tw-text-opacity));
 }
 
 .focus\:outline-none:focus {
