@@ -64,12 +64,17 @@ function storeLoginDetails(res) {
 
     // Redirect to admin landing page
     window.location.href = "http://localhost:63342/sankt-peder-frontend-tailwind/frontend-tailwindcss/html/admin/admin-landingpage.html";
+    document.getElementById("hidden-button-container").style.display = "block";
+
 }
 
 function logoutClick() {
     clearLoginDetails();
 }
 
+function goToLandingPage() {
+    window.location.href = "http://localhost:63342/sankt-peder-frontend-tailwind/frontend-tailwindcss/html/admin/admin-landingpage.html";
+}
 function clearLoginDetails() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -83,4 +88,5 @@ function toggleLoginStatus(loggedIn) {
     logoutContainer.style.display = loggedIn ? "block" : "none";
     const statusTxt = loggedIn ? "User: " + localStorage["user"] : "";
     userDetails.innerText = statusTxt;
+    document.getElementById("hidden-button-container").style.display = loggedIn ? "block" : "none";
 }
