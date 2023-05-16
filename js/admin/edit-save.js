@@ -1,17 +1,29 @@
 async function getMenus() {
-    return fetch('http://localhost:8080/menu/menus')
-        .then(response => response.json())
-        .then(data => data)
-        .catch(error => {
-            console.error(error);
-            return null;
-        });
+    try {
+        const response = await fetch('http://localhost:8080/menu/menus');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
 }
 
 function createMenuItem(item, index) {
     const menuItem = document.createElement('div');
     menuItem.id = `menu-item-${item.id}`;
-    menuItem.classList.add('menu-item', 'bg-gray-200', 'flex', 'flex-row', 'justify-between', 'max-w-6xl', 'sm:max-w-md');
+    menuItem.classList.add(
+        'menu-item',
+        'bg-gray-200',
+        'flex',
+        'flex-row',
+        'justify-between',
+        'max-w-6xl',
+        'sm:max-w-md'
+    );
 
     const orderNumber = document.createElement('div');
     orderNumber.classList.add('order-number', 'mr-4');
@@ -47,19 +59,18 @@ function createMenuItem(item, index) {
     return menuItem;
 }
 
-// Rest of the code remains unchanged
-
-
-// Function to update menu item via API
 async function updateMenuItem(item, itemId) {
     try {
-        const response = await fetch(`http://localhost:8080/menuItem/menuItems/${itemId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(item)
-        });
+        const response = await fetch(
+            `http://localhost:8080/menuItem/menuItems/${itemId}`,
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(item),
+            }
+        );
 
         if (response.ok) {
             const updatedItem = await response.json();
@@ -75,36 +86,40 @@ async function updateMenuItem(item, itemId) {
 document.addEventListener('DOMContentLoaded', async function () {
     try {
         let menuData = await getMenus();
-        const menuItems = document.querySelector('#menu-items');
-
-
-        const menuName = document.querySelector('#menu-name');
+        const menuItemsContainer = document.querySelector('#menu-items');
 
         menuData.forEach((menu) => {
+            const menuContainer = document.createElement('div');
+            menuContainer.classList.add('menu-container');
+
             const menuHeader = document.createElement('h2');
+            menuHeader.classList.add('menu-header');
             menuHeader.textContent = menu.name;
-            menuItems.appendChild(menuHeader);
+            menuHeader.dataset.menuId = menu.id;
+            menuContainer.appendChild(menuHeader);
+
+            const menuItemsGroup = document.createElement('div');
+            menuItemsGroup.classList.add('menu-items-group');
 
             menu.menuItems.forEach((item, index) => {
                 const menuItem = createMenuItem(item, index);
-                menuItems.appendChild(menuItem);
+                menuItemsGroup.appendChild(menuItem);
             });
+
+            menuContainer.appendChild(menuItemsGroup);
+            menuItemsContainer.appendChild(menuContainer);
         });
 
         document.querySelector('#menu-items').addEventListener('click', (event) => {
-            if (event.target.matches('.edit-item-btn')) {
+            if (event.target.matches('button.edit-item-btn')) {
                 const index = parseInt(event.target.dataset.index, 10);
                 const menuItem = event.target.closest('.menu-item');
-                console.log('menuItem:', menuItem);
+                const menuItemsContainer = menuItem.parentNode;
+                const menuContainer = menuItemsContainer.parentNode;
+                const menuHeader = menuContainer.querySelector('.menu-header');
+                const menuId = parseInt(menuHeader.dataset.menuId, 10);
 
-                const menuGroup = menuItem.closest('.menu-items-group');
-                const menuHeader = menuGroup.closest('.menu-items-group').querySelector('.menu-header');
-                console.log('menuHeader:', menuHeader);
-
-        const menuIndex = Array.from(menuItems.children).indexOf(menuHeader.nextElementSibling);
-
-
-                const menuDataItem = menuData[menuIndex];
+                const menuDataItem = menuData.find(menu => menu.id === menuId);
                 if (!menuDataItem || !menuDataItem.hasOwnProperty('menuItems') || !Array.isArray(menuDataItem.menuItems)) {
                     console.error('Invalid menu data');
                     return;
@@ -115,6 +130,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     console.error('Invalid item to edit');
                     return;
                 }
+
                 document.querySelector('#edit-item-name').value = itemToEdit.name;
                 document.querySelector('#edit-item-description').value = itemToEdit.description;
                 document.querySelector('#edit-item-price').value = itemToEdit.price;
@@ -127,49 +143,51 @@ document.addEventListener('DOMContentLoaded', async function () {
                     itemToEdit.price = document.querySelector('#edit-item-price').value;
 
                     const editedMenuItem = createMenuItem(itemToEdit, index);
-                    menuItem.outerHTML = editedMenuItem;
+                    menuItem.parentNode.replaceChild(editedMenuItem, menuItem);
 
                     document.querySelector('#edit-item-modal').classList.add('hidden');
 
                     updateMenuItem(itemToEdit, itemToEdit.id);
                 };
+                document.querySelector('#close-edit-modal-btn').addEventListener('click', () => {
+                    document.querySelector('#edit-item-modal').classList.add('hidden');
+                });
             }
         });
 
-        document.querySelector('#close-edit-modal-btn').addEventListener('click', () => {
-            document.querySelector('#edit-item-modal').classList.add('hidden');
-        });
-
-        new Sortable(menuItems, {
+        new Sortable(menuItemsContainer, {
             animation: 150,
-            handle: ".menu-item",
+            handle: '.menu-item',
             onEnd: function (event) {
                 const newOrder = [];
-                const menuHeaders = menuItems.querySelectorAll('h2');
+                const menuHeaders = menuItemsContainer.querySelectorAll('.menu-header');
                 menuHeaders.forEach((menuHeader) => {
-                    const menuIndex = Array.from(menuHeader.parentNode.children).indexOf(menuHeader);
-                    const menuDataItem = menuData[menuIndex];
+                    const menuId = parseInt(menuHeader.dataset.menuId, 10);
+                    const menuDataItem = menuData.find(menu => menu.id === menuId);
                     if (!menuDataItem || !menuDataItem.hasOwnProperty('menuItems') || !Array.isArray(menuDataItem.menuItems)) {
                         console.error('Invalid menu data');
                         return;
                     }
-                    const menuItemsContainer = menuHeader.nextElementSibling;
                     const menuItemsArray = Array.from(menuItemsContainer.children);
-                    const menuItemsData = menuItemsArray.map((itemElement) => {
-                        const itemId = parseInt(itemElement.id.replace('menu-item-', ''));
-                        return menuDataItem.menuItems.find((item) => item.id === itemId);
-                    });
+                    const menuItemsData = menuItemsArray.reduce((items, itemElement) => {
+                        const itemId = parseInt(itemElement.id.replace('menu-item-', ''), 10);
+                        const menuItem = menuDataItem.menuItems.find((item) => item.id === itemId);
+                        if (menuItem) {
+                            items.push(menuItem);
+                        }
+                        return items;
+                    }, []);
+
                     newOrder.push({
                         ...menuDataItem,
                         menuItems: menuItemsData,
                     });
                 });
+
                 menuData = newOrder;
                 updateMenuItemOrder(newOrder);
             },
         });
-
-
 
         async function updateMenuItemOrder(menuData) {
             try {
@@ -184,6 +202,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 if (response.ok) {
                     const updatedData = await response.json();
                     console.log('Updated menu data:', updatedData);
+                    location.reload();
                 } else {
                     console.error('Failed to update menu data:', response.status);
                 }
