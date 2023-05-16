@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 // Function to populate the menu dropdown
         function populateMenuDropdown(menusData) {
             const menuDropdown = document.querySelector('#menu-dropdown');
-            menuDropdown.innerHTML = ''; // Clear the dropdown before populating
+            menuDropdown.innerHTML = '<option value="">Select a menu</option>'; // Add an empty option as the default selection
 
             menusData.forEach(menu => {
                 const option = document.createElement('option');
@@ -86,6 +86,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             const description = document.querySelector('#item-description').value;
             const price = document.querySelector('#item-price').value;
 
+            const selectedMenuId = parseInt(menuDropdown.value, 10); // Get the selected menu ID
+
             if (!selectedMenuId) {
                 alert('Please select a menu before adding an item.');
                 return;
@@ -98,12 +100,11 @@ document.addEventListener('DOMContentLoaded', async function () {
             };
 
             try {
-                const response = await postMenuItem(selectedMenuId, newItem, menusData); // Pass menusData as a parameter
-                if (response) {
-                    const updatedMenuData = await getMenus(); // Fetch the updated menusData after posting the menu item
-                    menusData = updatedMenuData; // Update the menusData with the latest data
-                    const selectedMenu = updatedMenuData.find((menuData) => menuData.id === selectedMenuId);
-                    if (selectedMenu) {
+                const menusData = await getMenus(); // Fetch the menusData to ensure it's up to date
+                const selectedMenu = menusData.find((menuData) => menuData.id === selectedMenuId);
+                if (selectedMenu) {
+                    const response = await postMenuItem(selectedMenuId, newItem, menusData); // Pass the selected menu ID, new item, and menusData
+                    if (response) {
                         selectedMenu.menuItems.push(newItem);
                         const menuItemsContainer = document.querySelector(`#menu-items-${selectedMenuId}`);
                         const menuItem = createMenuItem(newItem, selectedMenu.menuItems.length - 1);
@@ -111,10 +112,10 @@ document.addEventListener('DOMContentLoaded', async function () {
                         closeAddItemModal();
                         resetAddItemForm();
                     } else {
-                        throw new Error(`Menu not found with ID: ${selectedMenuId}`);
+                        throw new Error('An error occurred while posting the menu item.');
                     }
                 } else {
-                    throw new Error('An error occurred while posting the menu item.');
+                    throw new Error(`Menu not found with ID: ${selectedMenuId}`);
                 }
             } catch (error) {
                 console.error(error);
