@@ -1,3 +1,7 @@
+const token = localStorage.getItem("token")
+//If token existed, for example after a refresh, set UI accordingly
+console.log(token)
+
 // Fetch menus and populate the dropdown menu
 fetch('http://localhost:8080/menu/menus')
     .then(function(response) {
@@ -38,7 +42,8 @@ document.getElementById('menuForm').addEventListener('submit', function(event) {
         fetch('http://localhost:8080/menu/' + menuId, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Include the token in the Authorization header
             },
             body: JSON.stringify(menu)
         })
@@ -64,7 +69,11 @@ document.getElementById('deleteBtn').addEventListener('click', function() {
     if (menuId) {
         // Make DELETE request to delete the menu
         fetch('http://localhost:8080/menu/' + menuId, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+            }
         })
             .then(function(response) {
                 if (response.ok) {
