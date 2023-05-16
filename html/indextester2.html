@@ -5,35 +5,39 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="../css/main.css">
-
+  <link rel="stylesheet" href="../css/fragment/footer.css">
+  <link rel="stylesheet" href="../css/customer/indextester2.css">
+  <script src="../js/customer/hamburger.js"defer></script>
 
   <title>Manage Landing Page</title>
 
-  <link rel="stylesheet" href="../css/fragment/footer.css">
-  <link rel="stylesheet" href="../css/customer/indextester2.css">
-  <script src="../js/customer/indextester.js"></script>
 </head>
 
-<body>
 
-<!-- Navbar -->
-<nav id="navbar" class="fixed w-full mx-auto p-2 pb-4 bg-white transition-colors duration-500">
+<body>
+<nav id="navbar" class="fixed w-full mx-auto p-2 pb-2 bg-white transition-colors duration-500 z-20">
   <!-- Flex container -->
   <div class="flex items-center justify-between">
     <!-- Menu Items -->
-    <div class="hidden space-x-6 md:flex">
-      <a href="./indextester2.html" class="hover:text-amber-600">FORSIDE</a>
-      <a href="menuOgDrikkevare.html" class="hover:text-amber-600">MENUKORT OG DRIKKEVARER</a>
-      <a href="menukort1050Personer.html" class="hover:text-amber-600">MENUKORT 10-50 PERSONER</a>
-      <a href="selskabsmenu.html" class="hover:text-amber-600">SELSKABSMENU</a>
-      <a href="mødelokaler.html" class="hover:text-amber-600">MØDELOKALE/LOGEN </a>
-      <a href="julemenu.html" class="hover:text-amber-600">JULEMENU 2023</a>
-      <a href="fotos.html" class="hover:text-amber-600">FOTOS</a>
-      <a href="omOs.html" class="hover:text-amber-600">OM OS</a>
+    <div class="hidden space-x-6 md:flex items-center justify-center w-full"> <!-- Add w-full class -->
+      <div class="flex justify-center"> <!-- Wrap the menu items in a nested flex container -->
+        <a href="./indextester2.html" class="hover:text-primary mr-2">FORSIDE</a>
+        <a href="menuOgDrikkevare.html" class="hover:text-primary mr-2">MENUKORT OG DRIKKEVARER</a>
+        <a href="menukort1050Personer.html" class="hover:text-primary mr-2">MENUKORT 10-50 PERSONER</a>
+        <a href="selskabsmenu.html" class="hover:text-primary mr-2">SELSKABSMENU</a>
+        <a href="mødelokaler.html" class="hover:text-primary mr-2">MØDELOKALE/LOGEN</a>
+        <a href="julemenu.html" class="hover:text-primary mr-2">JULEMENU 2023</a>
+        <a href="fotos.html" class="hover:text-primary mr-2">FOTOS</a>
+        <a href="omOs.html" class="hover:text-primary">OM OS</a>
+      </div>
     </div>
     <!-- Button -->
+
     <a href="./customer/fotos.html" class="bg-primary text-white py-2 px-4 rounded-full hidden md:flex items-center justify-center p-3 px-6 pt-2 text-white bg-primary rounded-full hover:bg-black">FOTOS</a>
   </div>
+
+
+
 
   <!-- Hamburger Icon and Small Screen Text -->
   <div class="flex items-center justify-between md:hidden">
@@ -46,10 +50,9 @@
     </button>
   </div>
 
-
   <!-- Mobile Menu -->
   <div class="md:hidden">
-    <div id="menu" class="absolute flex-col items-center hidden self-end py-8 mt-10 space-y-6 font-bold bg-white sm:w-auto sm:self-center left-6 right-6 drop-shadow-md">
+    <div id="menu" class="absolute flex-col items-center hidden self-end py-8 mt-10 space-y-6 font-bold bg-white sm:w-auto sm:self-center left-6 right-6 drop-shadow-md z-20">
       <a href="index.html" class="hover:text-amber-600">FORSIDE</a>
       <a href="menuOgDrikkevare.html" class="hover:text-amber-600">MENUKORT OG DRIKKEVARER</a>
       <a href="menukort1050Personer.html" class="hover:text-amber-600">MENUKORT 10-50 PERSONER</a>
@@ -64,17 +67,25 @@
 
 
 <!-- Hero Section -->
-<section id="hero" class="mt-16">
-  <div class="container flex flex-col items-center justify-center px-6 mx-auto mt-10 space-y-0 md:space-y-0 md:flex-row pt-30 font-bold">
-    <p>Velkommen til Sankt Peder</p>
+<section id="hero" style="position: relative;">
+  <div class="md:w-full">
+    <img src="../image/Forsidefoto.jpg" alt="Sankt Peder forside billede" />
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+      <h1 style="font-size: 2.5rem; color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+        Sankt Peder
+      </h1>
+    </div>
   </div>
   <!-- Flex Container -->
-  <div class="container flex flex-col-reverse items-center px-6 mx-auto mt-10 space-y-0 md:space-y-0 md:flex-row pt-10">
+  <div class="container flex flex-col-reverse items-center px-6 mx-auto mt-10 space-y-0 md:space-y-0 md:flex-row">
+
     <!-- Left item -->
     <div class="flex flex-col mb-32 space-y-12 md:w-1/2">
+
       <h1 class="max-w-md text-4xl font-bold text-center md:text-5xl md:text-left">
         Hellerups hyggelige smørhul <br>
-        Siden 1972      </h1>
+        Siden 1972
+      </h1>
       <p class="max-w-sm text-center text-darkGrayishBlue md:text-left">
         Der kan KUN reserveres bord til spisende gæster og IKKE til drikkegæster
         - Men selvfølgelig velkommen på chancen - Ude nede eller oppe :-)
@@ -82,14 +93,19 @@
       <div class="flex justify-center md:justify-start">
         <a href="https://book.dinnerbooking.com/dk/da-DK/book/table/pax/2880/2" class="bg-primary text-white py-2 px-4 rounded-full hidden md:flex items-center justify-center p-3 px-6 pt-2 text-white bg-primary rounded-full hover:bg-black">BESTIL BORD</a>
       </div>
-      </div>
     </div>
     <!-- Image -->
-  <div class="md:w-1/2">
-    <img src="../pics/sankt-peder.jpeg" alt="hero">
+    <div class="md:w-1/2">
+      <img src="../image/Forsidefoto.jpg" alt="Sankt Peder forside billede" />
+    </div>
   </div>
-  </div>
+
 </section>
+
+
+
+
+
 
 <!-- Features Section -->
 <section id="features">
@@ -106,6 +122,7 @@
         Desuden kan du i vores bar nyde en af de mange special øl. Er du mere til kølig rosé eller en flaske champagne har vi også det.
       </p>
     </div>
+
 
     <!--Numbered List-->
     <div class="flex flex-col space-y-8 md:w-1/2">
@@ -210,7 +227,7 @@
       <!-- Testimonial 1 -->
       <div
               class="flex flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:w-1/3">
-        <img src="../pics/tripadvisor.jpeg" class="w-16 -mt-14" alt="" />
+        <img src="../image/tripadvisor.jpeg" class="w-16 -mt-14" alt="" />
         <h5 class="text-lg font-bold">Overtagelse af lokalerne</h5>
         <p class="text-sm text-darkGrayishBlue">
           Da Mette og Hans Peter Dam i 1972 overtog lokalerne, satte de Tivolis to ledende arkitekter Simon Henningsen og Erik “Spjæt” Christensen til at indrette restauranten som tak fik de en god frokost for opgaven. Lokalerne står i dag stadig som Mette og Hans Peter fik dem indrettet efter overtagelsen i sin tid
@@ -221,7 +238,7 @@
       <div
               class="hidden flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3"
       >
-        <img src="../pics/tripadvisor.jpeg" class="w-16 -mt-14" alt="" />
+        <img src="../image/tripadvisor.jpeg" class="w-16 -mt-14" alt="" />
         <h5 class="text-lg font-bold">Arkitekterne bag</h5>
         <p class="text-sm text-darkGrayishBlue">
           Efter overtagelsen satte de Tivolis to ledende arkitekter Simon Henningsen og Erik “Spjæt” Christensen til at indrette restauranten
@@ -232,38 +249,29 @@
       <div
               class="hidden flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3"
       >
-        <img src="../pics/tripadvisor.jpeg" class="w-16 -mt-14" alt="" />
+        <img src="../image/tripadvisor.jpeg" class="w-16 -mt-14" alt="" />
         <h5 class="text-lg font-bold">Hvem driver Sankt Peder i dag?</h5>
         <p class="text-sm text-darkGrayishBlue">
           I dag drives Sankt Peder af sønnen Martin Dam, og vores idégrundlag er stadig det samme - hjemmelavet kvalitetsfrokost med friske råvarer af bedste kvalitet,
         </p>
       </div>
     </div>
+
+
     <!-- Button -->
     <div class="my-16">
       <a
               href="#"
               class="p-3 px-6 pt-2 text-white bg-primary rounded-full baseline hover:bg-brightRedLight"
-      >Get Started</a
-      >
+      >Get Started</a>
+
     </div>
+
   </div>
+
 </section>
 
-<!-- CTA Section -->
-<section id="cta" class="bg-brightRed">
-  <!-- Flex Container -->
-  <div
-          class="container flex flex-col items-center justify-between px-6 py-24 mx-auto space-y-12 md:py-12 md:flex-row md:space-y-0"
-  >
-    <!-- Heading -->
-    <h2
-            class="text-5xl font-bold text-center text-white md:text-4xl md:max-w-xl md:text-left"
-    >
-      Simplify how your team works today
-    </h2>
-  </div>
-</section>
+
 
 <!-- Footer -->
 <footer>
@@ -299,7 +307,7 @@
       <h4>Reviews</h4>
       <p>Google: 4.4</p>
       <p>Tripadvisor</p>
-      <a href="https://www.tripadvisor.dk/Restaurant_Review-g1571712-d1136057-Reviews-Vaertshuset_Sankt_Peder-Hellerup_Gentofte_Municipality_Copenhagen_Region_Zealand.html"><img src="../../sankt-peder-frontend-tailwind/pics/tripadvisor.jpeg"width="100" height="100" alt="Tripadvisor logo"></a>
+      <a href="https://www.tripadvisor.dk/Restaurant_Review-g1571712-d1136057-Reviews-Vaertshuset_Sankt_Peder-Hellerup_Gentofte_Municipality_Copenhagen_Region_Zealand.html"><img src="../image/tripadvisor.jpeg" width="100" height="100" alt="Tripadvisor logo"></a>
     </div>
   </div>
 
