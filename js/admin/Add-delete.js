@@ -1,4 +1,3 @@
-
 async function getMenus() {
     try {
         const response = await fetch('http://localhost:8080/menu/menus');
@@ -25,17 +24,18 @@ async function getMenu(menuId) {
 
 function createMenuItem(item, index) {
     return `
-  <div id="menu-item-${item.id}" class="menu-item bg-gray-200 flex flex-row justify-between max-w-6xl sm:max-w-md">
-      <div class="order-number mr-4">${index + 1}. </div>
-      <div class="menu-item-main flex-grow">
-          <p class="menu-item-title font-bold">${item.name}</p>
-          <p class="menu-item-description">${item.description}</p>
-      </div>
-      <span class="menu-item-price ml-4">${item.price},-</span>
-      <button class="delete-item-btn" data-menu-id="${item.menuId}" data-index="${index}">Delete</button>
-  </div>
-`;
+        <div id="menu-item-${item.id}" class="menu-item bg-gray-200 flex flex-row justify-between max-w-6xl sm:max-w-md">
+            <div class="order-number mr-4">${index + 1}. </div>
+            <div class="menu-item-main flex-grow">
+                <p class="menu-item-title font-bold">${item.name}</p>
+                <p class="menu-item-description">${item.description}</p>
+            </div>
+            <span class="menu-item-price ml-4">${item.price},-</span>
+<button class="delete-item-btn" data-menu-item-id="${item.id}" data-menu-id="${item.menuId}" data-index="${index}">Delete</button>
+        </div>
+    `;
 }
+
 
 document.addEventListener('DOMContentLoaded', async function () {
     try {
@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         function closeAddItemModal() {
             addItemModal.classList.add('hidden');
         }
+
         async function handleAddItemFormSubmit(event) {
             event.preventDefault();
             const name = document.querySelector('#item-name').value;
@@ -111,6 +112,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                         menuItemsContainer.innerHTML += menuItem;
                         closeAddItemModal();
                         resetAddItemForm();
+                        location.reload(); // Reload the page
                     } else {
                         throw new Error('An error occurred while posting the menu item.');
                     }
@@ -149,12 +151,18 @@ document.addEventListener('DOMContentLoaded', async function () {
         document.querySelectorAll('.delete-item-btn').forEach(deleteButton => {
             deleteButton.addEventListener('click', async (event) => {
                 const menuItemId = parseInt(event.target.dataset.menuItemId, 10);
+                const menuId = parseInt(event.target.dataset.menuId, 10);
 
                 try {
                     await deleteMenuItem(menuItemId);
 
                     // Perform any necessary UI updates after successful deletion
-                    event.target.parentElement.remove();
+                    const menuItemsContainer = document.querySelector(`#menu-items-${menuId}`);
+                    const menuItemElement = document.querySelector(`#menu-item-${menuItemId}`);
+
+                    if (menuItemsContainer && menuItemElement) {
+                        menuItemsContainer.removeChild(menuItemElement);
+                    }
                 } catch (error) {
                     console.error(error);
                     alert("An error occurred while deleting the menu item. Please try again.");
@@ -227,7 +235,7 @@ async function postMenuItem(menuId, menuItem, menusData) {
             name: item.name,
             description: item.description,
             price: item.price,
-            image: item.image ? { id: item.image.id } : null
+            image: item.image ? {id: item.image.id} : null
         };
     });
 
@@ -268,7 +276,6 @@ async function postMenuItem(menuId, menuItem, menusData) {
 }
 
 
-
 async function deleteMenuItem(menuItemId) {
     try {
         const response = await fetch(`http://localhost:8080/menuItem/deleteMenuItem/${menuItemId}`, {
@@ -283,6 +290,7 @@ async function deleteMenuItem(menuItemId) {
         }
 
         console.log("Deleted menu item:", menuItemId);
+        location.reload(); // Reload the page
         return true;
     } catch (error) {
         console.error(error);
