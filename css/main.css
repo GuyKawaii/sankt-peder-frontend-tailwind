@@ -556,9 +556,6 @@ video {
   }
 }
 
-.collapse {
-  visibility: collapse;
-}
 
 .fixed {
   position: fixed;

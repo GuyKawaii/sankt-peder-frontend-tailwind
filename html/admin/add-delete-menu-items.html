@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add or delete items from the menu card</title>
-    <link rel="stylesheet" href="../../css/main.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>Add or delete items from the menu card</title>
+    <link rel="stylesheet" href="../../css/main.css">
     <link rel="stylesheet" href="../../css/admin/add-delete.css">
 </head>
 <body class="bg-gray-100">
@@ -28,16 +28,25 @@
                 <li class="nav-item">
                     <a class="nav-link" href="edit-save-menu-items.html">Edit-Save items (placeholder)</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="post-menu.html">Add Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="put-menu.html">Update menu</a>
+                </li>
             </ul>
             <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <span id="logged-in-user" class="nav-link"></span>
+                </li>
                 <li class="nav-item">
                     <button id="btn-admin-logout" class="btn btn-dark">Logout</button>
                 </li>
             </ul>
+
         </div>
     </div>
 </nav>
-
 <div class="w-full flex items-center justify-center flex flex-col">
     <h2 id="menu-name" class="p-4">MENU TITLE</h2>
     <button id="add-item-btn" class="mb-4">Add Menu Item</button>
@@ -70,10 +79,10 @@
     </div>
 </div>
 
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.10.2/Sortable.min.js" defer></script>
 <script src="../../js/REST_API.js"></script>
 <script src="../../js/admin/Add-delete.js"></script>
+<script src="../../js/admin/getUser.js"></script>
 </body>
 </html>
 

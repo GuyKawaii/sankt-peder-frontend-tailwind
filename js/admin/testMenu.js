@@ -1,41 +1,7 @@
-const menuPlaceHolder = {
-    "id": 1,
-    "name": "Updated Menu Name 2",
-    "menuItems": [
-        {
-            "id": 1,
-            "name": "Updated MenuItem 1 2",
-            "description": "Updated description for MenuItem 1",
-            "price": "99,57",
-            "image": {
-                "hibernateLazyInitializer": {},
-                "id": 1,
-                "url": "https://example.com/images/karrysild.jpg"
-            }
-        },
-        {
-            "id": 2,
-            "name": "Updated MenuItem 2 2",
-            "description": "Updated description for MenuItem 2",
-            "price": "15,99",
-            "image": {
-                "hibernateLazyInitializer": {},
-                "id": 2,
-                "url": "https://example.com/images/smoked-mackerel.jpg"
-            }
-        },
-        {
-            "id": 3,
-            "name": "NEW ITEM",
-            "description": "NEW ITEM NICE 2",
-            "price": "15,99",
-            "image": {
-                "hibernateLazyInitializer": {},
-                "id": 3,
-                "url": "https://example.com/images/smoked-mackerel.jpg"
-            }
-        }
-    ]
+const token = localStorage.getItem("token");
+
+if (!token) {
+    window.location.href = "http://localhost:63342/sankt-peder-frontend-tailwind/frontend-tailwindcss/html/admin/login.html";
 }
 
 // Mocking the getMenu function to return placeholder data
