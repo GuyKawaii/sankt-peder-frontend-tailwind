@@ -3,12 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fotos</title>
     <link rel="stylesheet" href="../../css/main.css">
     <script src="../../js/customer/photos.js" defer></script>
-<!--    <script src="../../js/REST_API.js" defer></script>-->
+    <!--    <script src="../../js/REST_API.js" defer></script>-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#navbar').load('../fragment/navbar.html');
+        });
+    </script>
+    <title>Fotos</title>
 </HEAD>
 <body>
+<!--<div id="navbar"></div>-->
+
 
 <div class="w-full items-center justify-center flex flex-col">
     <h2 id="menu-name-1" class="p-4">MENU TITLE</h2>
