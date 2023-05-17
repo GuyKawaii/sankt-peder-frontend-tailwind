@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* custom classes using tailwind default classes */
+@layer components {
+    .navbar-item {
+        @apply inline-block px-2 text-gray-700 text-center text-sm z-10 hover:text-primary;
+    }
+
+    .burger-item {
+        @apply hover:text-primary;
+    }
+}
