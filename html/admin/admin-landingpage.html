@@ -13,8 +13,7 @@
             margin: 2em;
         }
     </style>
-    <script src="../../js/admin/login.js"></script>
-    <title></title>
+    <title>Admin Landing Page</title>
 </head>
 
 <body>
@@ -35,48 +34,32 @@
                 <li class="nav-item">
                     <a class="nav-link" href="edit-save-menu-items.html">Edit-Save items (placeholder)</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="post-menu.html">Add Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="put-menu.html">Update menu</a>
+                </li>
             </ul>
             <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <span id="logged-in-user" class="nav-link"></span>
+                </li>
                 <li class="nav-item">
                     <button id="btn-admin-logout" class="btn btn-dark">Logout</button>
                 </li>
             </ul>
+
         </div>
     </div>
 </nav>
-
 
 <div id="admin-landing" class="landing-container" style="display: none;">
     <h3>Welcome, Admin!</h3>
 </div>
 
 <p style="margin:1em;font-size:x-large" id="response"></p>
-<script src="../../js/admin/login.js"></script>
-<script>
-    // admin landing page og logout
-    // Ryk dette javascript i en fil for sig selv
-    const adminLandingContainer = document.getElementById('admin-landing');
-    const adminLogoutButton = document.getElementById('btn-admin-logout');
-
-    function showAdminLandingPage() {
-        const loggedInUser = getUserFromToken(); // Funktion til at hente en bruger fra token
-        if (loggedInUser.roles.includes('ADMIN')) {
-            adminLandingContainer.style.display = 'block';
-            adminLandingBtn.style.display = 'block';
-            adminLandingContainer.style.display = 'inline';
-        }
-    }
-
-    // Logout knap på admin siden
-    adminLogoutButton.addEventListener('click', () => {
-
-        // Redirecter til login siden fra admin siden
-        window.location.href = 'login.html';
-    });
-
-    //når man trykker på knappen til til admin siden kaldes følgende funktion
-    showAdminLandingPage();
-</script>
+<script src="../../js/admin/getUser.js"></script>
 </body>
 
 </html>

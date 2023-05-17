@@ -7,54 +7,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <title></title>
+    <title>Login and Logout</title>
 </head>
 
 <body>
 <div style="margin:1em;">
-    <h2>Demo Page to demonstrate security, implemented by backend</h2>
+    <h2>Login and Logout</h2>
     <br />
-    <p>Unless you have changed anything, the backend provides these default users, all with the password: <b>test12</b>
-    </p>
-    <ul>
-        <li>user1 &#x2192; Roles: ADMIN + USER</li>
-        <li>user2 &#x2192; Roles: USER</li>
-        <li>user3 &#x2192; Roles: ADMIN</li>
-        <li>user4 &#x2192; Roles: (None) </li>
-    </ul>
-    <p>If you have implemented the six endpoints requested by the exercise,
-        pressing any of the buttons below, will make a request to the corresponding endpoint</p>
-    <ul id="buttons" style="list-style-type: none;" class="horizontal-ul">
-        <li><button id="btn-anonymous" class="btn btn-outline-dark">Anonymous</button></li>
-        <li><button id="btn-authenticated" class="btn btn-outline-dark">Authenticated</button></li>
-        <li><button id="btn-user" class="btn btn-outline-dark">User</button></li>
-        <li><button id="btn-admin" class="btn btn-outline-dark">Admin</button></li>
-        <li><button id="btn-user-admin" class="btn btn-outline-dark">User or Admin</button></li>
-        <li><button id="btn-user-from-token" class="btn btn-outline-dark">Username from token</button></li>
 
-        <!-- Knappen som redirecter til admin-landingpage.html -->
-        <button id="btn-admin-landing" class="btn btn-primary" style="display:none;">Go to Admin Landing Page</button>
+    <div id="login-container" class="password-container">
+        <input id="input-user" placeholder="username">
+        <input id="input-password" type="password" placeholder="password">
+        <button id="btn-login" class="btn btn-dark">Login</button>
+    </div>
 
 
 
-
-        <li id="login-container" class="password-container">
-            <input id="input-user" placeholder="username">
-            <input id="input-password" type="password" placeholder="password">
-            <button id="btn-login" class="btn btn-dark">Login</button>
-
-        </li>
-
-
-        <li id="logout-container" class="password-container" style="display: none;">
-            <span id="user-details"></span> &nbsp;
-            <button id="btn-logout" class="btn btn-dark">Logout</button>
-        </li>
-
-    </ul>
-    <hr />
+    <div id="logout-container" class="password-container" style="display: none;">
+        <span id="user-details"></span> &nbsp;
+        <button id="btn-logout" class="btn btn-dark">Logout</button>
+    </div>
+    <br>
+    <div id="hidden-button-container" style="display: none;">
+        <button id="btn-landing-page" onclick="goToLandingPage()">Go to Landing Page</button>
+    </div>
 </div>
+
 <p style="margin:1em;font-size:x-large" id="response"></p>
+
 <script src="../../js/admin/login.js"></script>
 </body>
 
