@@ -9,7 +9,10 @@ module.exports = {
       sm: '480px',
       md: '768px',
       lg: '976px',
-      logo: '1280px',
+      footer: '800px',
+      logo: '1315px',
+      footer_col: '535px',
+      footer_row: '800px',
     },
     extend: {
       colors: {

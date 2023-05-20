@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +9,10 @@
     <script src="../../js/fragment/burger-menu.js" defer></script>
     <link rel="stylesheet" href="../../css/fragment/burger-menu.css">
 </head>
+
 <body>
 
-<nav class="fixed top-0 w-full z-50 bg-white shadow-lg">
+<nav id="navbar" class="fixed top-0 w-full z-50 bg-white shadow-lg">
     <!--logo-->
     <div class="absolute top-0 left-0 right-0">
         <div class="container mx-auto pt-0 flex items-center">
@@ -35,12 +37,12 @@
 
     <!--desktop links - custom centering + set mr + ml for 'center' elements -->
     <div class="hidden py-3 md:flex flex-wrap justify-center mt-10  logo:mt-1 logo:ml-[20px]">
-            <a href="../customer/index.html" class="navbar-item">MENUKORT OG DRIKKEVARER</a>
-            <a href="../customer/index.html" class="navbar-item logo:mr-28">MENUKORT 10-50 PERSONER</a>
-            <a href="../customer/index.html" class="navbar-item logo:ml-28">SELSKABSMENU</a>
-            <a href="../customer/index.html" class="navbar-item ">MØDELOKALE/LOGEN</a>
-            <a href="../customer/index.html" class="navbar-item">JULEMENU 2023</a>
-            <a href="../customer/index.html" class="navbar-item">OS</a>
+        <a href="../customer/index.html" class="navbar-item">MENUKORT OG DRIKKEVARER</a>
+        <a href="../customer/index.html" class="navbar-item logo:mr-28">MENUKORT 10-50 PERSONER</a>
+        <a href="../customer/index.html" class="navbar-item logo:ml-28">SELSKABSMENU</a>
+        <a href="../customer/index.html" class="navbar-item ">MØDELOKALE/LOGEN</a>
+        <a href="../customer/index.html" class="navbar-item">JULEMENU 2023</a>
+        <a href="../customer/index.html" class="navbar-item">OS</a>
     </div>
 
     <!--mobile links-->
@@ -57,7 +59,32 @@
         <a href="../customer/index.html" class="burger-item">OM OS</a>
     </div>
 </nav>
+<!--custom padding so navbar pushes content TODO make the complete dom load change this value-->
+<div id="navbar-padding" class="pt-[48px]"></div>
 
+    <p>hello first line</p>
 
 </body>
+
 </html>
+
+<script>
+    window.onload = function () {
+        ø
+        const navbar = document.querySelector('#navbar-main');
+        const bodyContent = document.querySelector('#navbar-padding');
+
+        let navbarHeight = navbar.offsetHeight;
+
+        bodyContent.style.paddingTop = navbarHeight + 'px';
+    };
+
+    window.onresize = function () {
+        const navbar = document.querySelector('#navbar-main');
+        const bodyContent = document.querySelector('#navbar-padding');
+
+        let navbarHeight = navbar.offsetHeight;
+
+        bodyContent.style.paddingTop = navbarHeight + 'px';
+    };
+</script>

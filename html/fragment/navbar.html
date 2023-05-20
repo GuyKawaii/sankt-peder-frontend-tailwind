@@ -3,12 +3,12 @@
 <link rel="stylesheet" href="../../css/fragment/burger-menu.css">
 
 <!--html-->
-<nav class="fixed top-0 w-full z-50 bg-white shadow-lg">
+<nav id="navbar" class="fixed top-0 w-full z-50 bg-white shadow-lg">
   <!--logo-->
   <div class="absolute top-0 left-0 right-0">
     <div class="container mx-auto pt-0 flex items-center">
 
-      <button id="menu-btn" class="absolute left-4 top-4 block hamburger focus:outline-none z-50 md:hidden">
+      <button id="menu-btn" class="md:hidden absolute left-4 top-4 block hamburger focus:outline-none z-50">
         <span class="hamburger-top"></span>
         <span class="hamburger-middle"></span>
         <span class="hamburger-bottom"></span>
@@ -20,15 +20,14 @@
 
       <div class="absolute right-3 top-1">
         <a href="../customer/fotos.html"
-           class="bg-primary text-white px-6 py-2 hidden md:flex items-center justify-center  rounded-full hover:bg-black">FOTOS</a>
+          class="bg-primary text-white px-6 py-2 hidden md:flex items-center justify-center  rounded-full hover:bg-black">FOTOS</a>
       </div>
 
     </div>
   </div>
 
-  <!--desktop links -|- custom centering + set mr + ml for 'center' elements -->
-  <div class="hidden py-3 md:flex flex-wrap justify-center mt-10  logo:mt-1 logo:ml-[-50px]">
-    <a href="../customer/index.html" class="navbar-item">FORSIDE</a>
+  <!--desktop links - custom centering + set mr + ml for 'center' elements -->
+  <div class="hidden py-3 md:flex flex-wrap justify-center mt-10  logo:mt-1 logo:ml-[20px]">
     <a href="../customer/index.html" class="navbar-item">MENUKORT OG DRIKKEVARER</a>
     <a href="../customer/index.html" class="navbar-item logo:mr-28">MENUKORT 10-50 PERSONER</a>
     <a href="../customer/index.html" class="navbar-item logo:ml-28">SELSKABSMENU</a>
@@ -40,7 +39,7 @@
   <!--mobile links-->
   <div class="py-6 md:hidden"></div>
   <div id="menu"
-       class="absolute flex-col items-center hidden self-end py-8 mt-10 space-y-6 font-bold bg-white sm:w-auto sm:self-center left-6 right-6 drop-shadow-md z-20">
+    class="absolute flex-col items-center hidden self-end py-8 mt-10 space-y-6 font-bold bg-white sm:w-auto sm:self-center left-6 right-6 drop-shadow-md z-20">
     <a href="../customer/index.html" class="burger-item">FORSIDE</a>
     <a href="../customer/index.html" class="burger-item">MENUKORT OG DRIKKEVARER</a>
     <a href="../customer/index.html" class="burger-item">MENUKORT 10-50 PERSONER</a>
@@ -51,3 +50,6 @@
     <a href="../customer/index.html" class="burger-item">OM OS</a>
   </div>
 </nav>
+<!--custom padding so navbar pushes content TODO make the complete dom load change this value-->
+<div id="navbar-padding" class="pt-[48px]"></div>
+

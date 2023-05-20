@@ -6,3 +6,12 @@ btn.addEventListener('click', () => {
     nav.classList.toggle('flex')
     nav.classList.toggle('hidden')
 })
+
+window.onresize = function () {
+    const navbar = document.querySelector('#navbar');
+    const bodyContent = document.querySelector('#navbar-padding');
+
+    let navbarHeight = navbar.offsetHeight;
+
+    bodyContent.style.paddingTop = navbarHeight + 'px';
+};
