@@ -13,16 +13,21 @@
     </script>
     <title>Sankt Peder</title>
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
 <div id="navbar-fragment"></div>
+<!-- Page content -->
+<main class="flex-grow">
+    <p>hello first line</p>
+    <p>hello</p>
+    <p>hello</p>
+    <p>hello last line</p>
 
-<p>first line here</p>
-<p>extra line here</p>
-<p>extra line here</p>
-<p>extra line here</p>
-<p>extra line here</p>
-
-
+    <div class="sm:block md:flex lg:flex">
+        <div class="md:flex-grow lg:flex-grow">A</div>
+        <div class="sm:w-full md:order-last lg:flex-grow">B</div>
+        <div class="md:flex-grow lg:flex-grow">C</div>
+    </div>
+</main>
 <div id="footer-fragment"></div>
 </body>
 </html>
