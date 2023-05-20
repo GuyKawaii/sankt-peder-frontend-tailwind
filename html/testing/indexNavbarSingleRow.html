@@ -69,9 +69,8 @@
 </html>
 
 <script>
-    window.onload = function () {
-        ø
-        const navbar = document.querySelector('#navbar-main');
+    function adjustNavbarPadding() {
+        const navbar = document.querySelector('#navbar');
         const bodyContent = document.querySelector('#navbar-padding');
 
         let navbarHeight = navbar.offsetHeight;
@@ -79,12 +78,7 @@
         bodyContent.style.paddingTop = navbarHeight + 'px';
     };
 
-    window.onresize = function () {
-        const navbar = document.querySelector('#navbar-main');
-        const bodyContent = document.querySelector('#navbar-padding');
+    window.onload = adjustNavbarPadding;
 
-        let navbarHeight = navbar.offsetHeight;
-
-        bodyContent.style.paddingTop = navbarHeight + 'px';
-    };
+    window.onresize = adjustNavbarPadding;
 </script>
