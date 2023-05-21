@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="../../css/main.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#navbar-fragment").load("../fragment/navbar.html");
+            $("#footer-fragment").load("../fragment/footer.html");
+        });
+    </script>
+    <script src="../../js/customer/CustomerMenu.js" defer></script>
+    <title>Menukort</title>
+</head>
+<body class="flex min-h-screen flex-col">
+<div id="navbar-fragment"></div>
+<!-- Page content -->
+<main class="flex-grow">
+    <br/>
+
+    <div class="flex flex-col items-center justify-center">
+        <h1 class="text-4xl font-bold">Menukort</h1>
+        <p class="text-xl">Vælg en kategori</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:flex md:flex-row gap-4 justify-center">
+        <button id="menu_1" class="menu-selection">
+            MENU 11.30 - 21.00
+        </button>
+        <button id="menu_2" class="menu-selection">
+            MIDDAGSRET 18.00 - 21.00
+        </button>
+        <button id="menu_3" class="menu-selection">
+            DRIKKEVARER
+        </button>
+        <button id="menu_4" class="menu-selection">
+            VINKORT
+        </button>
+    </div>
+
+
+    <div id="dynamic_menu"></div>
+
+    <br/>
+</main>
+<div id="footer-fragment"></div>
+</body>
+</html>
+</html>

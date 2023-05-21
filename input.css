@@ -11,4 +11,8 @@
     .burger-item {
         @apply hover:text-primary;
     }
+
+    .menu-selection {
+        @apply px-2 py-1 bg-gray-100 hover:bg-black hover:text-white
+    }
 }
