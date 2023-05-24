@@ -1,29 +1,33 @@
-// return the menu from the database
+// Return the menu from the database
 async function getMenu(menuId) {
-    return fetch('http://localhost:8080/menu/' + menuId)
-        .then(response => response.json())
-        .then(data => data)
-        .catch(error => {
-            console.error(error);
-            return null;
-        });
+    try {
+        const response = await fetch(`http://localhost:8080/menu/${menuId}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
 }
 
-// initial menu selection
+// Initial menu selection
 window.onload = async function () {
     createMenu([1]);
 }
 
 async function createMenu(menuIds) {
-    const menu = document.querySelector('#dynamic_menu');
-    menu.innerHTML = '';
+    const menuContainer = document.querySelector('#dynamic_menu');
+    menuContainer.innerHTML = '';
 
     // Iterate over each menu ID
     for (const menuId of menuIds) {
         // Fetch the menu data
         let menuData = await getMenu(menuId);
 
-        let menuItems = ``;
+        let menuItems = '';
 
         // Create the menu items
         menuData.menuItems.forEach((item, index) => {
@@ -50,16 +54,85 @@ async function createMenu(menuIds) {
                 <div class="grid grid-cols-1 gap-6 px-2 sm:grid-cols-2 lg:grid-cols-3">
                     ${menuItems}
                 </div>
+                <button class="generate-pdf-btn" data-menu-id="${menuId}">Download PDF</button>
             </div>
         `;
 
         // Append the menu section to the menu container
-        menu.innerHTML += menuSection;
+        menuContainer.innerHTML += menuSection;
+    }
+
+    // Attach event listeners to the "Generate PDF" buttons
+    const generatePDFBtns = document.querySelectorAll('.generate-pdf-btn');
+    generatePDFBtns.forEach(function (btn) {
+        btn.addEventListener('click', generatePDF);
+    });
+}
+
+async function generatePDF(event) {
+    try {
+        const menuId = parseInt(event.currentTarget.dataset.menuId);
+        const menuData = await getMenu(menuId);
+
+        if (menuData) {
+            const htmlContent = getMenuHTML(menuData);
+            const pdfData = {
+                htmlContent: htmlContent
+            };
+
+            const response = await fetch('http://localhost:8080/generate-pdf', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(pdfData),
+            });
+
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+                openPDF(url);
+            } else {
+                throw new Error('Failed to generate PDF.');
+            }
+        } else {
+            throw new Error('Failed to fetch menu data.');
+        }
+    } catch (error) {
+        console.error(error);
+        alert('An error occurred while generating the PDF. Please try again.');
     }
 }
 
+function getMenuHTML(menuData) {
+    let menuHTML = `
+        <h2>${menuData.name}</h2>
+        <ul>
+    `;
 
+    menuData.menuItems.forEach((menuItem) => {
+        menuHTML += `
+            <li>
+                <h4>${menuItem.name}</h4>
+                <p>${menuItem.description}</p>
+                <p>${menuItem.price}</p>
+            </li>
+        `;
+    });
 
+    menuHTML += '</ul>';
+
+    return menuHTML;
+}
+
+function openPDF(url) {
+    window.open(url, '_blank');
+}
+
+function downloadPDF(url) {
+    // Use the openPDF function to open the PDF in the browser
+    openPDF(url);
+}
 
 const button_1 = document.querySelector('#menu_1');
 const button_2 = document.querySelector('#menu_2');
@@ -67,21 +140,17 @@ const button_3 = document.querySelector('#menu_3');
 const button_4 = document.querySelector('#menu_4');
 
 button_1.addEventListener('click', () => {
-        createMenu([1]);
-    }
-);
+    createMenu([1]);
+});
 
 button_2.addEventListener('click', () => {
-        createMenu([2])
-    }
-);
+    createMenu([2]);
+});
 
 button_3.addEventListener('click', () => {
-        createMenu([6]);
-    }
-);
+    createMenu([6]);
+});
 
 button_4.addEventListener('click', () => {
-        createMenu([10, 11, 12, 13]);
-    }
-);
+    createMenu([10, 11, 12, 13]);
+});

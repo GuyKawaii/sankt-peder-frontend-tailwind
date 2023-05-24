@@ -37,10 +37,11 @@ function createMenuItem(item, index) {
                 <p class="menu-item-description">${item.description}</p>
             </div>
             <span class="menu-item-price ml-4">${item.price},-</span>
-<button class="delete-item-btn" data-menu-item-id="${item.id}" data-menu-id="${item.menuId}" data-index="${index}">Delete</button>
+            <button class="delete-item-btn" data-menu-item-id="${item.id}" data-menu-id="${item.menuId}" data-index="${index}">Delete</button>
         </div>
     `;
 }
+
 
 
 document.addEventListener('DOMContentLoaded', async function () {
@@ -136,22 +137,27 @@ document.addEventListener('DOMContentLoaded', async function () {
             const menuId = menuData.id;
             const menuTitle = menuData.name;
 
-            // Create menu container
             const menuContainer = document.createElement('div');
             menuContainer.classList.add('menu-container');
             menuContainer.innerHTML = `
-  <h2 class="menu-title">${menuTitle}</h2>
-  <div id="menu-items-${menuId}" class="menu-items"></div>
-`;
+                <h2 class="menu-title">${menuTitle}</h2>
+                <div id="menu-items-${menuId}" class="menu-items"></div>
+                <button class="generate-pdf-btn" data-menu-id="${menuId}">Generate PDF</button>
+            `;
             menuItems.appendChild(menuContainer);
 
             const menuItemsContainer = document.querySelector(`#menu-items-${menuId}`);
 
-            // Add menu items
             menuData.menuItems.forEach((item, index) => {
                 const menuItem = createMenuItem(item, index);
                 menuItemsContainer.innerHTML += menuItem;
             });
+        });
+
+        // Add event listener to Generate PDF button
+        const generatePDFBtns = document.querySelectorAll('.generate-pdf-btn');
+        generatePDFBtns.forEach(btn => {
+            btn.addEventListener('click', generatePDF);
         });
 
         document.querySelectorAll('.delete-item-btn').forEach(deleteButton => {
