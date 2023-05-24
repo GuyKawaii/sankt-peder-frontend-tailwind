@@ -29,7 +29,7 @@ adminLogoutButton.addEventListener('click', () => {
     localStorage.removeItem('user');
 
     // Redirect to login page from admin page
-    window.location.href = 'http://localhost:63342/sankt-peder-frontend-tailwind/frontend-tailwindcss/html/admin/login.html';
+    window.location.href = 'http://localhost:63342/sankt-peder-frontend-tailwind/html/admin/login.html';
 });
 
 // admin landing page and logout

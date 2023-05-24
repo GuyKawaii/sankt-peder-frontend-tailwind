@@ -1,3 +1,9 @@
+const token = localStorage.getItem("token");
+
+if (!token) {
+    window.location.href = "http://localhost:63342/sankt-peder-frontend-tailwind/html/admin/login.html";
+}
+
 async function getMenu(menuId) {
     let response = await fetch('http://localhost:8080/menu/' + menuId);
     if (!response.ok) {

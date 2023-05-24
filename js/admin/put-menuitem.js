@@ -1,8 +1,9 @@
 const token = localStorage.getItem("token");
 
 if (!token) {
-    window.location.href = "http://localhost:63342/sankt-peder-frontend-tailwind/frontend-tailwindcss/html/admin/login.html";
+    window.location.href = "http://localhost:63342/sankt-peder-frontend-tailwind/html/admin/login.html";
 }
+
 
 
 // Fetch menu items and populate the dropdown menu

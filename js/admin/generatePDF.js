@@ -1,3 +1,10 @@
+const token = localStorage.getItem("token");
+
+if (!token) {
+    window.location.href = "http://localhost:63342/sankt-peder-frontend-tailwind/html/admin/login.html";
+}
+
+
 document.addEventListener('DOMContentLoaded', function () {
     // Get all the "Generate PDF" buttons
     const generatePDFBtns = document.querySelectorAll('.generate-pdf-btn');
