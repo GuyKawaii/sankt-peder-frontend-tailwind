@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="dk">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="../../css/main.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#navbar-fragment").load("../fragment/navbar.html");
+            $("#footer-fragment").load("../fragment/footer.html");
+        });
+    </script>
+    <title>Sankt Peder</title>
+</head>
+<body class="flex min-h-screen flex-col">
+<div id="navbar-fragment"></div>
+<!-- Page content -->
+<main class="flex-grow">
+    <!-- Booking Section -->
+    <div class="relative flex min-h-full items-center justify-center">
+        <img
+                src="../../image/ForsidefotoBlur.jpg"
+                alt="Sankt Peder forside billede"
+                class="absolute inset-0 h-full w-full object-cover"
+        />
+        <div
+                class="z-10 overflow-auto rounded-lg bg-white bg-opacity-70 p-5 md:my-32 text-center shadow-2xl"
+        >
+            <h1
+                    class="whitespace-nowrap rounded-lg border-4 bg-primary p-2 px-3 pb-4 text-center text-xl text-white sm:text-2xl md:text-3xl lg:text-4xl"
+            >
+                - Hellerups hyggelige smørhul -
+            </h1>
+
+            <h2 class="md:text-xl">
+                Siden 1972 <br/>
+                Sankt Peders Vej 2 <br/>
+                2900 Hellerup <br/>
+            </h2>
+
+            <p class="mt-4 md:text-xl">
+                Kristi himmelfartsdag Torsdag den 18. maj lukker køkkenenet kl. 16
+                og baren kl. 18.00 <br/>
+
+            </p>
+            <p class="font-semibold md:md:text-xl"> Husk at bestille bord</p>
+
+            <div class="mt-4">
+                <a
+                        href="https://book.dinnerbooking.com/dk/da-DK/book/table/pax/2880/2"
+                        class="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-white md:text-xl duration-200 hover:bg-black"
+                >BESTIL BORD</a
+                >
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative">
+        <!-- Flex Container -->
+        <div
+                class="container mx-auto mt-10 flex flex-col-reverse items-center space-y-0 px-6 md:flex-row md:space-y-0"
+        >
+            <!-- Left item -->
+            <div class="mb-32 flex flex-col space-y-12 md:w-1/2">
+                <h1
+                        class="max-w-md text-center text-4xl font-bold md:text-left md:text-5xl"
+                >
+                    Hellerups hyggelige smørhul <br/>
+                    Siden 1972
+                </h1>
+                <p class="text-darkGrayishBlue max-w-sm text-center md:text-left">
+                    Der kan KUN reserveres bord til spisende gæster og IKKE til
+                    drikkegæster - Men selvfølgelig velkommen på chancen - Ude nede
+                    eller oppe :-)
+                </p>
+                <div class="flex justify-center md:justify-start">
+                    <a
+                            href="https://book.dinnerbooking.com/dk/da-DK/book/table/pax/2880/2"
+                            class="hidden items-center justify-center rounded-full bg-primary p-3 px-6 py-2 pt-2 text-white hover:bg-black md:flex"
+                    >BESTIL BORD</a
+                    >
+                </div>
+            </div>
+            <!-- Image -->
+            <div class="md:w-1/2">
+                <img
+                        src="../../image/sanktp.png"
+                        alt="Sankt Peder forside billede"
+                />
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <!-- Flex container -->
+        <div class="container flex flex-col px-4 mx-auto mt-10 space-y-12 md:space-y-0 md:flex-row"
+        >
+            <!-- What's Different -->
+            <div class="flex flex-col space-y-12 md:w-1/2">
+                <h2 class="max-w-md text-4xl font-bold text-center md:text-left">
+                    Velkommen til Sankt Peder i Hellerup
+                </h2>
+                <p class="max-w-sm text-center text-darkGrayishBlue md:text-left">
+                    På Sankt Peder bestræber vi os på at være din fortrukne lokale frokost- og middagsrestaurant med en afslappet atmosfære. <br> <br> Foruden vores faste menukort har vi altid dages ret samt en hjemmelavet dessert.
+                    Desuden kan du i vores bar nyde en af de mange special øl. Er du mere til kølig rosé eller en flaske champagne har vi også det.
+                </p>
+            </div>
+
+
+            <!--Numbered List-->
+            <div class="flex flex-col space-y-8 md:w-1/2">
+                <!--List Item 1-->
+                <div class="flex flex-col text space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
+                    <!--Heading-->
+                    <div class="rounded-full bg-primary md:bg-transparent">
+                        <div class="flex items-center space-x-2">
+                            <div class="px-4 py-2 text-white rounded-full md:py-1 bg-primary">
+                                01
+                            </div>
+                            <!--Text-->
+                            <h3 class="text-base font-bold text-white md:text-black md:mb-4 md:hidden">
+                                UDESERVERING
+                            </h3>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="hidden mb-4 text-lg font-bold md:block">
+                            UDESERVERING
+                        </h3>
+                        <div class="text-blue-400">
+                            <p>
+                                Det er muligt at forespørge på reservation af bordene ude, men vi kan ikke garantere at det er muligt.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--List Item 2-->
+                <div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
+                    <!--Heading-->
+                    <div class="rounded-full bg-primary md:bg-transparent">
+                        <div class="flex items-center space-x-2">
+                            <div class="px-4 py-2 text-white rounded-full md:py-1 bg-primary">
+                                02
+                            </div>
+                            <!--Text-->
+                            <h3 class="text-base font-bold text-white md:text-black md:mb-4 md:hidden">
+                                HVOR LANG TID ER BORDET TIL RÅDIGHED
+                            </h3>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="hidden mb-4 text-lg font-bold md:block">
+                            HVOR LANG TID ER BORDET TIL RÅDIGHED
+                        </h3>
+                        <div class="text-blue-400">
+                            <p>
+                                Bordet er som udgangspunkt til rådighed i 2 timer - lad os vide hvis du har brug for længere tid.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--List Item 3-->
+                <div class="flex flex-col space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
+                    <!--Heading-->
+                    <div class="rounded-full bg-primary md:bg-transparent">
+                        <div class="flex items-center space-x-2">
+                            <div class="px-4 py-2 text-white rounded-full md:py-1 bg-primary">
+                                03
+                            </div>
+                            <!--Text-->
+                            <h3 class="text-base font-bold text-white md:text-black md:mb-4 md:hidden">
+                                GRUPPER og SELSKABER
+                            </h3>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="hidden mb-4 text-lg font-bold md:block">
+                            GRUPPER og SELSKABER
+                        </h3>
+                        <div class="text-blue-400">
+                            <p>
+                                Vi tager ikke imod online reservationer på mere end 10 personer -
+                                reservation telefonisk eller til vores email på: sanktpeder72@gmail.com.
+                                Bekræftelse af endeligt antal skal ske 7 dage før.<br>
+                                Hvis der udebliver flere end 2 gæster på dagen, fakturerer vi for disse.
+                                Alle selskaber afregnes på samlet regning - vi laver ikke individuelle afregning.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials">
+        <!-- Container to heading and testm blocks -->
+        <div class="max-w-6xl px-5 mx-auto mt-32 text-center">
+            <!-- Heading -->
+            <h2 class="text-4xl font-bold text-center">
+                Historien om Sankt Peder siden 1972
+            </h2>
+            <!-- Testimonials Container -->
+            <div class="flex flex-col mt-24 md:flex-row md:space-x-6">
+                <!-- Testimonial 1 -->
+                <div
+                        class="flex flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:w-1/3">
+                    <img src="../../image/tripadvisor.jpeg" class="w-16 -mt-14" alt="" />
+                    <h5 class="text-lg font-bold">Overtagelse af lokalerne</h5>
+                    <p class="text-sm text-darkGrayishBlue">
+                        Da Mette og Hans Peter Dam i 1972 overtog lokalerne, satte de Tivolis to ledende arkitekter Simon Henningsen og Erik “Spjæt” Christensen til at indrette restauranten som tak fik de en god frokost for opgaven. Lokalerne står i dag stadig som Mette og Hans Peter fik dem indrettet efter overtagelsen i sin tid
+                    </p>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div
+                        class="hidden flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3"
+                >
+                    <img src="../../image/tripadvisor.jpeg" class="w-16 -mt-14" alt="" />
+                    <h5 class="text-lg font-bold">Arkitekterne bag</h5>
+                    <p class="text-sm text-darkGrayishBlue">
+                        Efter overtagelsen satte de Tivolis to ledende arkitekter Simon Henningsen og Erik “Spjæt” Christensen til at indrette restauranten
+                    </p>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div
+                        class="hidden flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3"
+                >
+                    <img src="../../image/tripadvisor.jpeg" class="w-16 -mt-14" alt="" />
+                    <h5 class="text-lg font-bold">Hvem driver Sankt Peder i dag?</h5>
+                    <p class="text-sm text-darkGrayishBlue">
+                        I dag drives Sankt Peder af sønnen Martin Dam, og vores idégrundlag er stadig det samme - hjemmelavet kvalitetsfrokost med friske råvarer af bedste kvalitet,
+                    </p>
+                </div>
+            </div>
+
+
+            <!-- Button -->
+            <div class="my-16">
+                <a
+                        href="#"
+                        class="p-3 px-6 pt-2 text-white bg-primary rounded-full baseline hover:bg-brightRedLight"
+                >Tilbage til toppen af siden</a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+<div id="footer-fragment"></div>
+</body>
+</html>

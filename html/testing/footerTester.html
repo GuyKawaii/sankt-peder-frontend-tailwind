@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#navbar-fragment").load("../fragment/navbar.html");
+        });
+    </script>
+    <title>Title</title>
+    <link rel="stylesheet" href="../../css/main.css"/>
+</head>
+<body class="flex min-h-screen flex-col">
+<div id="navbar-fragment"></div>
+
+<!-- Page content -->
+<main class="flex-grow">
+    <p>hello first line</p>
+    <p>hello</p>
+    <p>hello</p>
+    <p>hello last line</p>
+
+    <div class="sm:block md:flex lg:flex">
+        <div class="md:flex-grow lg:flex-grow">A</div>
+        <div class="sm:w-full md:order-last lg:flex-grow">B</div>
+        <div class="md:flex-grow lg:flex-grow">C</div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer
+        class="flex flex-col justify-between bg-gray-400 px-2 py-2 footer_row:flex-row"
+>
+    <div class="footer_col:flex footer_col:justify-between">
+        <div class="flex flex-col items-center text-white footer_col:w-64">
+            <div class="mb-2 text-center font-bold">Åbningstider</div>
+            <table class="table-auto text-left">
+                <tr>
+                    <td class="pr-2">Mandag - Tirsdag</td>
+                    <td>- 11:00 - 24:00</td>
+                </tr>
+                <tr>
+                    <td class="pr-2">Torsdag - Fredag</td>
+                    <td>- 11:00 - 02:00</td>
+                </tr>
+                <tr>
+                    <td class="pr-2">Søndag</td>
+                    <td>- 11:30 - 20:00</td>
+                </tr>
+            </table>
+
+            <div class="mb-2 mt-4 text-center font-bold">Køkken Åbningstider</div>
+            <table class="align-middle">
+                <tr>
+                    <td class="pr-2">Mandag - Tirsdag</td>
+                    <td>- 11:00 - 24:00</td>
+                </tr>
+                <tr>
+                    <td class="pr-2">Torsdag - Fredag</td>
+                    <td>- 11:00 - 02:00</td>
+                </tr>
+                <tr>
+                    <td class="pr-2">Søndag</td>
+                    <td>- 11:30 - 20:00</td>
+                </tr>
+            </table>
+        </div>
+
+        <div
+                class="location-info flex flex-col items-center justify-center text-white footer_row:hidden"
+        >
+            <h4 class="mb-2 text-center font-bold text-white">Adresse</h4>
+            <p class="mb-4 text-white">Sankt Peders Vej 2, 2900 Hellerup</p>
+
+            <h4 class="font-bold text-white">Kontakt information</h4>
+            <table>
+                <tr>
+                    <td class="pr-2">Email</td>
+                    <td>
+                        <a
+                                class="ml-auto text-secondary-200 hover:text-primary"
+                                href="mailto:sanktpeder72@gmail.com"
+                        >sanktpeder72@gmail.com</a
+                        >
+                    </td>
+                </tr>
+                <tr>
+                    <td class="pr-2">Telefon</td>
+                    <td>
+                        <a
+                                class="tel ml-auto text-secondary-200 hover:text-primary"
+                                href="tel:+45 38 10 64 00"
+                        >
+                            +45 38 10 64 00</a
+                        >
+                    </td>
+                </tr>
+            </table>
+
+            <div class="review-info mb-3 mt-6 flex w-full justify-between">
+                <div>
+                    <h4 class="mb-2 text-center font-bold text-white">Reviews</h4>
+                    <a href="https://www.findsmiley.dk/96130" class="">
+                        <button
+                                class="rounded-full bg-primary px-4 py-2 font-bold text-white duration-200 hover:bg-black"
+                        >
+                            smiley
+                        </button>
+                    </a>
+                </div>
+                <div class="flex">
+                    <a
+                            class="mx-6 mt-3 h-12"
+                            href="https://www.google.com/search?q=sankt+peder"
+                    >
+                        <img
+                                src="../../image/google-color-icon.svg"
+                                width="60"
+                                height="60"
+                                alt="google review"
+                        />
+                    </a>
+                    <a
+                            class="mt-3 h-10"
+                            href="https://www.tripadvisor.com/Restaurant_Review-g1571712-d1136057-Reviews-Vaertshuset_Sankt_Peder-Hellerup_Gentofte_Municipality_Copenhagen_Region_Zealand.html"
+                    >
+                        <img
+                                src="../../image/tripadvisor-icon.svg"
+                                width="60"
+                                height="60"
+                                alt="tripadvisor"
+                        />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <iframe
+            class="w-full flex-shrink footer_row:px-1"
+            height="300"
+            loading="lazy"
+            src="https://maps.google.com/maps?q=Sankt Peder&hl=en-US&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+    >
+    </iframe>
+
+    <div
+            class="location-info hidden px-1 text-white footer_row:block logo:flex logo:flex-col logo:items-center"
+    >
+        <h4 class="mb-2 text-center font-bold text-white">Adresse</h4>
+        <p class="mb-4 text-white">Sankt Peders Vej 2, 2900 Hellerup</p>
+
+        <h4 class="font-bold text-white">Kontakt information</h4>
+        <table>
+            <tr>
+                <td class="pr-2">Email</td>
+                <td>
+                    <a
+                            class="ml-auto text-secondary-200 hover:text-primary"
+                            href="mailto:sanktpeder72@gmail.com"
+                    >sanktpeder72@gmail.com</a
+                    >
+                </td>
+            </tr>
+            <tr>
+                <td class="pr-2">Telefon</td>
+                <td>
+                    <a
+                            class="tel ml-auto text-secondary-200 hover:text-primary"
+                            href="tel:+45 38 10 64 00"
+                    >
+                        +45 38 10 64 00</a
+                    >
+                </td>
+            </tr>
+        </table>
+
+        <div class="review-info mt-6 flex w-full justify-between">
+            <div>
+                <h4 class="mb-2 text-center font-bold text-white">Reviews</h4>
+                <a href="https://www.findsmiley.dk/96130" class="">
+                    <button
+                            class="rounded-full bg-primary px-4 py-2 font-bold text-white duration-200 hover:bg-black"
+                    >
+                        smiley
+                    </button>
+                </a>
+            </div>
+            <div class="flex">
+                <a
+                        class="mx-6 mt-3 h-12"
+                        href="https://www.google.com/search?q=sankt+peder"
+                >
+                    <img
+                            src="../../image/google-color-icon.svg"
+                            width="60"
+                            height="60"
+                            alt="google review"
+                    />
+                </a>
+                <a
+                        class="mt-3 h-10"
+                        href="https://www.tripadvisor.com/Restaurant_Review-g1571712-d1136057-Reviews-Vaertshuset_Sankt_Peder-Hellerup_Gentofte_Municipality_Copenhagen_Region_Zealand.html"
+                >
+                    <img
+                            src="../../image/tripadvisor-icon.svg"
+                            width="60"
+                            height="60"
+                            alt="tripadvisor"
+                    />
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
