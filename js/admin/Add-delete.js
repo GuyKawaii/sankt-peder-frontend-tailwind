@@ -58,7 +58,6 @@ document.addEventListener('DOMContentLoaded', async function () {
             selectedMenuId = parseInt(event.target.value, 10);
         });
 
-// Function to populate the menu dropdown
         function populateMenuDropdown(menusData) {
             const menuDropdown = document.querySelector('#menu-dropdown');
             menuDropdown.innerHTML = '<option value="">Select a menu</option>'; // Add an empty option as the default selection
@@ -77,7 +76,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         function resetAddItemForm() {
             addItemForm.reset();
-            selectedMenuId = null; // Reset the selected menu ID
+            selectedMenuId = null;
         }
 
         function openAddItemModal() {
@@ -94,7 +93,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             const description = document.querySelector('#item-description').value;
             const price = document.querySelector('#item-price').value;
 
-            const selectedMenuId = parseInt(menuDropdown.value, 10); // Get the selected menu ID
+            const selectedMenuId = parseInt(menuDropdown.value, 10);
 
             if (!selectedMenuId) {
                 alert('Please select a menu before adding an item.');
@@ -108,10 +107,10 @@ document.addEventListener('DOMContentLoaded', async function () {
             };
 
             try {
-                const menusData = await getMenus(); // Fetch the menusData to ensure it's up to date
+                const menusData = await getMenus();
                 const selectedMenu = menusData.find((menuData) => menuData.id === selectedMenuId);
                 if (selectedMenu) {
-                    const response = await postMenuItem(selectedMenuId, newItem, menusData); // Pass the selected menu ID, new item, and menusData
+                    const response = await postMenuItem(selectedMenuId, newItem, menusData);
                     if (response) {
                         selectedMenu.menuItems.push(newItem);
                         const menuItemsContainer = document.querySelector(`#menu-items-${selectedMenuId}`);
@@ -168,7 +167,6 @@ document.addEventListener('DOMContentLoaded', async function () {
                 try {
                     await deleteMenuItem(menuItemId);
 
-                    // Perform any necessary UI updates after successful deletion
                     const menuItemsContainer = document.querySelector(`#menu-items-${menuId}`);
                     const menuItemElement = document.querySelector(`#menu-item-${menuItemId}`);
 
@@ -270,7 +268,7 @@ async function postMenuItem(menuId, menuItem, menusData) {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+                Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(payload),
         });
@@ -295,7 +293,7 @@ async function deleteMenuItem(menuItemId) {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -304,7 +302,7 @@ async function deleteMenuItem(menuItemId) {
         }
 
         console.log('Deleted menu item:', menuItemId);
-        location.reload(); // Reload the page
+        location.reload();
         return true;
     } catch (error) {
         console.error(error);

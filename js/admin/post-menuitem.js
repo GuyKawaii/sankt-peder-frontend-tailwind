@@ -28,7 +28,7 @@ fetch('http://localhost:8080/menu/menus')
     });
 
 document.getElementById('menuItemForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent form submission
+    event.preventDefault();
 
     // Collect form data
     var name = document.getElementById('name').value;
@@ -36,7 +36,6 @@ document.getElementById('menuItemForm').addEventListener('submit', function(even
     var price = document.getElementById('price').value;
     var menuId = document.getElementById('menuSelect').value;
 
-    // Create payload object
     var payload = {
         name: name,
         description: description,
@@ -46,19 +45,18 @@ document.getElementById('menuItemForm').addEventListener('submit', function(even
         ]
     };
 
-    // Make POST request to the server
     fetch('http://localhost:8080/menuItem/postMenuItem', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+            Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(payload)
     })
         .then(function(response) {
             if (response.ok) {
                 alert('MenuItem created successfully!');
-                location.reload(); // Refresh the page
+                location.reload();
             } else {
                 throw new Error('Error creating menuItem');
             }

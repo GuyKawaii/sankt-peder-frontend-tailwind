@@ -5,9 +5,8 @@ let selectedCourses = [];
 
 let menuData;
 
-// Fetch menu data from the API once
 async function fetchMenuData() {
-    const menus = [1, 2];  // Replace with actual menu IDs
+    const menus = [1, 2];
     menuData = await Promise.all(menus.map(async (menuId) => {
         const response = await axios.get(`http://localhost:8080/menu/${menuId}`);
         return response.data;
@@ -17,15 +16,13 @@ async function fetchMenuData() {
         const option = document.createElement('option');
         option.value = menu.id;
         option.textContent = menu.name;
-        if (menu.id == '2') { // Disable menu 2 by default
+        if (menu.id == '2') {
             option.disabled = true;
         }
         menuSelect.append(option);
     });
 }
 
-
-// Event listeners
 document.getElementById('people').addEventListener('change', updateMenuAvailability);
 document.getElementById('date').addEventListener('change', updateMenuAvailability);
 
@@ -42,15 +39,13 @@ function updateMenuAvailability() {
     const menu2Option = menuSelect.querySelector('option[value="2"]');
     menu2Option.disabled = !isMenu2Available;
 }
-
-// Fetch course data when a menu is selected
 menuSelect.addEventListener('click', async (e) => {
     const menuId = e.target.value;
     const selectedOption = e.target.options[e.target.selectedIndex];
     if (selectedOption.disabled) {
-        return; // Don't fetch courses if the selected menu is disabled
+        return;
     }
-    courseSelect.innerHTML = '';  // Clear previous course options
+    courseSelect.innerHTML = '';
     const menu = menuData.find((menu) => menu.id == menuId);
     menu.menuItems.forEach((item) => {
         const option = document.createElement('option');
@@ -62,13 +57,10 @@ menuSelect.addEventListener('click', async (e) => {
 
 
 
-// Initialize an id counter
 let idCounter = 1;
 
-// Get the "Add" button
 const addCourseBtn = document.getElementById('add-course-btn');
 
-// Add course to the selected courses when the "Add" button is clicked
 addCourseBtn.addEventListener('click', () => {
     const courseId = courseSelect.value;
     const menuId = courseSelect.querySelector(`option[value="${courseId}"]`).parentNode.value;
@@ -83,7 +75,7 @@ addCourseBtn.addEventListener('click', () => {
     console.log(selectedCourses);
 
     const courseElement = document.createElement('div');
-    courseElement.id = `course-${idCounter}`; // Assign the id here
+    courseElement.id = `course-${idCounter}`;
     courseElement.className = 'flex justify-between items-center';
     courseElement.innerHTML = `
         <span>${courseName}</span>
@@ -91,10 +83,9 @@ addCourseBtn.addEventListener('click', () => {
     `;
     selectedCoursesContainer.append(courseElement);
 
-    idCounter++; // Increment the id counter
+    idCounter++;
 });
 
-// Remove a course from the selected courses
 function removeCourse(id) {
     selectedCourses = selectedCourses.filter(course => course.selectId !== id);
     const elementToRemove = document.getElementById(`course-${id}`);
@@ -104,9 +95,7 @@ function removeCourse(id) {
     console.log(selectedCourses);
 }
 
-// Handle form submission
 const form = document.getElementById('reservation-form');
 
 
-// Load menu data on page load
 window.onload = fetchMenuData;

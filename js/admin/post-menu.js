@@ -6,29 +6,26 @@ if (!token) {
 
 
 document.getElementById('menuForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent form submission
+    event.preventDefault();
 
-    // Collect form data
     var name = document.getElementById('name').value;
 
-    // Create menu object
     var menu = {
         name: name
     };
 
-    // Make POST request to the server
     fetch('http://localhost:8080/menu', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+            Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(menu)
     })
         .then(function(response) {
             if (response.ok) {
                 alert('Menu created successfully!');
-                location.reload(); // Refresh the page
+                location.reload();
             } else {
                 throw new Error('Error creating menu');
             }

@@ -74,7 +74,7 @@ async function updateMenuItem(item, itemId) {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify(item),
             }
@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+                        Authorization: `Bearer ${token}`,
                     },
                     body: JSON.stringify(menuData),
                 });

@@ -15,7 +15,7 @@ async function getMenu(menuId) {
 
 window.onload = async function () {
     try {
-        const menuData = await getMenu(1);  // Fetch menu data from the server
+        const menuData = await getMenu(1);
         const menuItems = document.querySelector('#menu-items');
         const menuName = document.querySelector('#menu-name');
 

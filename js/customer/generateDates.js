@@ -35,7 +35,7 @@ function changeMonth(delta) {
 }
 window.onload = function() {
     generateGuestNumbers();
-    changeMonth(0);  // initializes the calendar with the current date
+    changeMonth(0);
     document.getElementById('timeSlotsContainer').innerHTML = generateTimeSlots();
 };
 

@@ -11,10 +11,7 @@ function generateGuestNumbers() {
 }
 
 function selectGuests(number) {
-    // Save the selected number of guests. This could be in a global variable or local storage.
-    // ...Your code here...
 
-    // Go to the next tab.
     changeTab(3);
 }
 

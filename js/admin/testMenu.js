@@ -4,8 +4,6 @@ if (!token) {
     window.location.href = "http://localhost:63342/sankt-peder-frontend-tailwind/html/admin/login.html";
 }
 
-
-// Mocking the getMenu function to return placeholder data
 async function getMenu(menuId) {
     return fetch('http://localhost:8080/menu/' + menuId)
         .then(response => response.json())
@@ -60,6 +58,5 @@ window.onload = async function () {
 }
 
 async function updateMenu(menuData) {
-// Mocking the updateMenu function to just log the updated data
     console.log("Updating menu data:", menuData);
 }

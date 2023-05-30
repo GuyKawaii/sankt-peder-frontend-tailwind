@@ -1,4 +1,3 @@
-// Return the menu from the database
 async function getMenu(menuId) {
     try {
         const response = await fetch(`http://localhost:8080/menu/${menuId}`);
@@ -13,7 +12,6 @@ async function getMenu(menuId) {
     }
 }
 
-// Initial menu selection
 window.onload = async function () {
     createMenu([1]);
 }
@@ -22,16 +20,12 @@ async function createMenu(menuIds) {
     const menuContainer = document.querySelector('#dynamic_menu');
     menuContainer.innerHTML = '';
 
-    // Iterate over each menu ID
     for (const menuId of menuIds) {
-        // Fetch the menu data
         let menuData = await getMenu(menuId);
 
         let menuItems = '';
 
-        // Create the menu items
         menuData.menuItems.forEach((item, index) => {
-            // Generate the HTML for a single menu item
             let menuItemHTML = `
                 <div id="menu-item-${item.id}" class="menu-item flex flex-row justify-between max-w-6xl sm:max-w-md">
                     <div class="order-number mr-4">${index + 1}. </div>
@@ -43,11 +37,9 @@ async function createMenu(menuIds) {
                 </div>
             `;
 
-            // Append the menuItemHTML to the menuItems
             menuItems += menuItemHTML;
         });
 
-        // Create the menu section
         let menuSection = `
             <div class="flex w-full flex-col items-center justify-center">
                 <h2 class="p-4">${menuData.name}</h2>
@@ -58,11 +50,9 @@ async function createMenu(menuIds) {
             </div>
         `;
 
-        // Append the menu section to the menu container
         menuContainer.innerHTML += menuSection;
     }
 
-    // Attach event listeners to the "Generate PDF" buttons
     const generatePDFBtns = document.querySelectorAll('.generate-pdf-btn');
     generatePDFBtns.forEach(function (btn) {
         btn.addEventListener('click', generatePDF);
@@ -130,7 +120,6 @@ function openPDF(url) {
 }
 
 function downloadPDF(url) {
-    // Use the openPDF function to open the PDF in the browser
     openPDF(url);
 }
 

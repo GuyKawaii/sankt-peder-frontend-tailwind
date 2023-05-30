@@ -1,20 +1,17 @@
 
-    let startTime = 10;  // start time (10:00)
-    let endTime = 21;  // end time (21:00)
+    let startTime = 10;
+    let endTime = 21;
     let timeSlots = [];
 
     while (startTime < endTime) {
     let startMinutes = (startTime * 60) % 60;
     let startHours = Math.floor(startTime);
 
-    // Format hours and minutes
     startHours = startHours < 10 ? '0'+startHours : startHours;
     startMinutes = startMinutes < 10 ? '0'+startMinutes : startMinutes;
 
-    // Push formatted time to array
     timeSlots.push(startHours + ':' + startMinutes);
 
-    // Increment time by 1 hour 15 minutes
     startTime += 1.25;
 }
 

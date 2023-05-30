@@ -17,7 +17,7 @@ function addMenuToPage(menuName, menuItems, menuId) {
             console.log("menuData for menuId:", menuId);
             console.log(menuData);
 
-            menuItems.innerHTML = ''; // Clear existing menu items
+            menuItems.innerHTML = '';
 
             menuData.menuItems.forEach(item => {
                 const menuItem = `
@@ -50,10 +50,8 @@ window.onload = function () {
         const menuName = document.querySelector('#menu-name-' + menuId);
         const menuItems = document.querySelector('#menu-items-' + menuId);
 
-        // Create a function that adds the menu to the page for a specific menuId
         const addMenu = addMenuToPage(menuName, menuItems, menuId);
 
-        // Invoke the addMenu function to fetch menu data and populate the page
         addMenu();
     }
 };

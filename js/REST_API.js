@@ -58,14 +58,3 @@ async function printMenuData() {
     console.log("here we are AFTER");
 }
 
-// function getMenu(menuId) {
-//     return fetch('http://localhost:8080/menu/' + menuId)
-//         .then(response => response.json())
-//         .then(data => console.log(data))
-//         .then(data => data)
-//         .catch(error => console.error(error));
-// }
-
-
-// Export the method, so it can be used in other files
-// export { getMenu };

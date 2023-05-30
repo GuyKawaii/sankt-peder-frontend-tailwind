@@ -6,7 +6,6 @@ if (!token) {
 
 
 
-// Fetch menu items and populate the dropdown menu
 fetch('http://localhost:8080/menuItem/menuItems')
     .then(response => response.json())
     .then(menuItems => {
@@ -42,7 +41,6 @@ fetch('http://localhost:8080/menu/menus')
         alert('An error occurred while fetching the menus');
     });
 
-// Populate the form fields based on the selected menu item
 function populateForm() {
     const menuItemId = document.getElementById('menuItemSelect').value;
     if (menuItemId === '') {
@@ -61,7 +59,6 @@ function populateForm() {
         .catch(error => console.log(error));
 }
 
-// Clear the form fields
 function clearForm() {
     document.getElementById('itemId').value = '';
     document.getElementById('name').value = '';
@@ -69,9 +66,6 @@ function clearForm() {
     document.getElementById('price').value = '';
     document.getElementById('menuSelect').value = '';
 }
-
-// Update menu item
-// Update menu item
 document.getElementById('menuItemForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -97,7 +91,7 @@ document.getElementById('menuItemForm').addEventListener('submit', function(even
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+            Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(menuItem)
     })
@@ -105,13 +99,11 @@ document.getElementById('menuItemForm').addEventListener('submit', function(even
         .then(updatedMenuItem => {
             console.log('Menu item updated:', updatedMenuItem);
             clearForm();
-            // Reload the page after updating the menu item
             location.reload();
         })
         .catch(error => console.log(error));
 });
 
-// Delete menu item
 document.getElementById('deleteButton').addEventListener('click', function() {
     const itemId = document.getElementById('itemId').value;
 
@@ -119,13 +111,12 @@ document.getElementById('deleteButton').addEventListener('click', function() {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+            Authorization: `Bearer ${token}`,
         },
     })
         .then(response => {
             console.log('Menu item deleted');
             clearForm();
-            // Reload the page after deleting the menu item
             location.reload();
         })
         .catch(error => console.log(error));

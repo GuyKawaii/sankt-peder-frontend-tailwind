@@ -6,7 +6,6 @@ if (!token) {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Get all the "Generate PDF" buttons
     const generatePDFBtns = document.querySelectorAll('.generate-pdf-btn');
 
     generatePDFBtns.forEach(function (btn) {

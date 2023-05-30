@@ -11,14 +11,8 @@ const logoutContainer = document.getElementById("logout-container");
 const userDetails = document.getElementById("user-details");
 
 const token = localStorage.getItem("token");
-// If token exists, for example after a refresh, set UI accordingly
 toggleLoginStatus(token);
 
-/**
- * Provides support for error-responses given as JSON with status 4xx or 5xx
- * Meant to be used as a callback in the first .then in a fetch call using async-await
- * @param res - Response object provided by fetch's first .then(..) method
- */
 async function handleHttpErrors(res) {
     if (!res.ok) {
         const errorResponse = await res.json();
@@ -31,7 +25,6 @@ async function handleHttpErrors(res) {
 
 async function loginClick() {
     responseStatus.innerText = "";
-    // Make the request object
     const loginRequest = {
         username: userNameInput.value,
         password: passwordInput.value

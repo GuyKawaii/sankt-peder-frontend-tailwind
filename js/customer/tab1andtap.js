@@ -11,14 +11,13 @@ function selectGuests(guests) {
 }
 
 function selectDate(day) {
-    let month = currentDate.getMonth() + 1; // JavaScript months are 0-11, so we add 1
+    let month = currentDate.getMonth() + 1;
     let year = currentDate.getFullYear();
 
-    // Ensure day and month are two digits
     day = day.toString().padStart(2, '0');
     month = month.toString().padStart(2, '0');
 
-    let formattedDate = `${day}-${month}-${year.toString().slice(-2)}`; // day/month/year (last two digits)
+    let formattedDate = `${day}-${month}-${year.toString().slice(-2)}`;
     dateSelection = formattedDate;
     changeTab(4);
 }
@@ -40,32 +39,26 @@ function updateSummary() {
 
 
 function changeTab(tabNumber) {
-    // Hide all tabs
     for (let i = 1; i <= 5; i++) {
         document.getElementById(`tab${i}`).classList.add('hidden');
         document.querySelector(`button[onclick='changeTab(${i})']`).classList.remove('bg-blue-500', 'text-white');
         document.querySelector(`button[onclick='changeTab(${i})']`).classList.add('bg-gray-200', 'text-black');
     }
 
-    // Show the selected tab
     document.getElementById(`tab${tabNumber}`).classList.remove('hidden');
     document.querySelector(`button[onclick='changeTab(${tabNumber})']`).classList.remove('bg-gray-200', 'text-black');
     document.querySelector(`button[onclick='changeTab(${tabNumber})']`).classList.add('bg-blue-500', 'text-white');
 
-    // If the "Bekræftelse" tab is selected, update the summary
     if (tabNumber === 5) {
         updateSummary();
     }
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    // Call changeTab for the first tab when the page loads
     changeTab(1);
 });
 
-//Bekræftelses knap på "Bekræftelse" tab
 function consentChange() {
-    // If the checkbox is checked, enable the confirm button.
     if (document.getElementById('consentCheckbox').checked) {
         document.getElementById('confirmButton').disabled = false;
     } else {
@@ -75,8 +68,8 @@ function consentChange() {
 
 
 function validateInput() {
-    let phonePattern = /^\d{8}$/; // Regex pattern for 8 digit number
-    let emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; // Regex pattern for email
+    let phonePattern = /^\d{8}$/;
+    let emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
     let phoneValid = phonePattern.test(document.getElementById('customer-phone').value);
     let emailValid = emailPattern.test(document.getElementById('customer-email').value);
