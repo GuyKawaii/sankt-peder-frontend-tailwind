@@ -7,66 +7,92 @@
     <link rel="stylesheet" href="../../css/main.css">
     <script src="https://cdn.jsdelivr.net/npm/axios@0.22.0/dist/axios.min.js"></script>
     <script src="../../js/admin/ResponsiveReservation.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#navbar-fragment").load("../fragment/navbar.html");
+            $("#footer-fragment").load("../fragment/footer.html");
+        });
+    </script>
 </head>
-<body>
-<div class="flex justify-center items-center h-screen px-4 sm:px-0">
-    <div class="w-full max-w-md py-8 p-4 border-2 border-gray-300 rounded">
-        <h1 class="relative text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl -mt-12 bg-white px-4">Reservation</h1>
-        <form id="reservation-form">
-        <div class="w-full">
-            <label for="people" class="block mb-1">Antal personer:</label>
-            <input type="number" id="people" name="people" min="10" max="50" required class="w-full p-2 border border-gray-300">
-        </div>
-        <div class="w-full">
-            <label for="date" class="block mb-1">Dato & tid:</label>
-            <input type="datetime-local" id="date" name="date" required class="w-full p-2 border border-gray-300">
-        </div>
-        <div class="w-full">
-            <label for="reason" class="block mb-1">Speciel anledning for reservationen?:</label>
-            <input type="text" placeholder="Fødselsdag,firmaarrangement, barnedåb mm. " id="reason" name="reason" maxlength="50" required class="w-full p-2 border border-gray-300">
-        </div>
+<body >
+<div id="navbar-fragment"></div>
+<!-- Page content -->
+<main class="flex-grow">
+    <div class="flex justify-center items-center h-screen px-4 sm:px-0">
+        <div class="w-full max-w-md py-8 p-4 border-2 border-gray-300 rounded">
+            <h1 class="relative text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl -mt-12 bg-white px-4">
+                Reservation</h1>
+            <form id="reservation-form">
+                <div class="w-full">
+                    <label for="people" class="block mb-1">Antal personer:</label>
+                    <input type="number" id="people" name="people" min="10" max="50" required
+                           class="w-full p-2 border border-gray-300">
+                </div>
+                <div class="w-full">
+                    <label for="date" class="block mb-1">Dato & tid:</label>
+                    <input type="datetime-local" id="date" name="date" required
+                           class="w-full p-2 border border-gray-300">
+                </div>
+                <div class="w-full">
+                    <label for="reason" class="block mb-1">Speciel anledning for reservationen?:</label>
+                    <input type="text" placeholder="Fødselsdag,firmaarrangement, barnedåb mm. " id="reason"
+                           name="reason" maxlength="50" required class="w-full p-2 border border-gray-300">
+                </div>
 
-        <div id="menu-selection-container" class="w-full">
-            <div class="w-full">
-                <label for="menu" class="block mb-1">Menu:</label>
-                <select id="menu" name="menu" required class="w-full p-2 border border-gray-300">
-                    <!-- Menu options will be dynamically generated -->
-                </select>
-            </div>
-            <div class="flex">
-                <select id="course" name="course" required class="w-full p-2 border border-gray-300">
-                    <!-- Course options will be dynamically generated based on selected menu -->
-                </select>
-                <button type="button" id="add-course-btn" class="bg-blue-500 text-white px-2 py-1 rounded ml-2">Add</button>
-            </div>
-            <div id="selected-courses-container">
-                <!-- Selected courses will be dynamically generated -->
-            </div>
-        </div>
+                <div id="menu-selection-container" class="w-full">
+                    <div class="w-full">
+                        <label for="menu" class="block mb-1">Menu:</label>
+                        <select id="menu" name="menu" required class="w-full p-2 border border-gray-300">
+                            <!-- Menu options will be dynamically generated -->
+                        </select>
+                    </div>
+                    <div class="flex">
+                        <select id="course" name="course" required class="w-full p-2 border border-gray-300">
+                            <!-- Course options will be dynamically generated based on selected menu -->
+                        </select>
+                        <button type="button" id="add-course-btn" class="bg-blue-500 text-white px-2 py-1 rounded ml-2">
+                            Add
+                        </button>
+                    </div>
+                    <div id="selected-courses-container">
+                        <!-- Selected courses will be dynamically generated -->
+                    </div>
+                </div>
 
-        <div class="w-full">
-            <label for="name" class="block mb-1">Navn:</label>
-            <input type="text" id="name" name="name" maxlength="50" required class="w-full p-2 border border-gray-300">
+                <div class="w-full">
+                    <label for="name" class="block mb-1">Navn:</label>
+                    <input type="text" id="name" name="name" maxlength="50" required
+                           class="w-full p-2 border border-gray-300">
+                </div>
+                <div class="w-full">
+                    <label for="email" class="block mb-1">Email:</label>
+                    <input type="email" id="email" name="email" maxlength="50" required
+                           class="w-full p-2 border border-gray-300">
+                </div>
+                <div class="w-full">
+                    <label for="seating" class="block mb-1">Hvor vil i sidde?:</label>
+                    <select id="seating" name="seating" required class="w-full p-2 border border-gray-300">
+                        <option value="">Select...</option>
+                        <option value="indoor">Indendørs</option>
+                        <option value="outdoor">Udendørs</option>
+                    </select>
+                </div>
+                <div class="w-full">
+                    <label for="additional-info" class="block mb-1">Additional Information:</label>
+                    <textarea id="additional-info" name="additional-info" maxlength="250"
+                              class="w-full p-2 border border-gray-300"
+                              placeholder="veganer eller andre specielle hensyn"></textarea>
+                </div>
+                <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded">Indsend</button>
+            </form>
         </div>
-        <div class="w-full">
-            <label for="email" class="block mb-1">Email:</label>
-            <input type="email" id="email" name="email" maxlength="50" required class="w-full p-2 border border-gray-300">
-        </div>
-        <div class="w-full">
-            <label for="seating" class="block mb-1">Hvor vil i sidde?:</label>
-            <select id="seating" name="seating" required class="w-full p-2 border border-gray-300">
-                <option value="">Select...</option>
-                <option value="indoor">Indendørs</option>
-                <option value="outdoor">Udendørs</option>
-            </select>
-        </div>
-        <div class="w-full">
-            <label for="additional-info" class="block mb-1">Additional Information:</label>
-            <textarea id="additional-info" name="additional-info" maxlength="250" class="w-full p-2 border border-gray-300" placeholder="veganer eller andre specielle hensyn"></textarea>
-        </div>
-        <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded">Indsend</button>
-    </form>
-</div>
-</div>   <!---->
+    </div>   <!---->
+
+    <div id="dynamic_menu"></div>
+
+    <br/>
+</main>
+<!--<div id="footer-fragment"></div>-->
 </body>
 </html>
